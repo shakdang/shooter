@@ -224,22 +224,56 @@
 //     })
 // }
 
+var i=0
+
 /**
  * Main drawing function
  */
 function D() {
-
+    // $K.kd(37) && console.log('left')
+    // $K.kd(39) && console.log('right')
+    // //$K.al(32, fire)
 }
+
+// UTILITIES
+
+function C(o) { return o.length };
 
 /**
  * Main recursive loop for drawing
  */
-function L() { D(); P(L) }
+function L() { D(); P(L) };
+
+/**
+ * Keytracker
+ * @constructor
+ */
+function K() {
+    this.h = {} // key press events register
+    t = [] // key press tracker
+
+    this.kd = function (k) { return(this.h[k]) } // is keydown
+    this.al = function (k,f) { t.push({k:k,f:f}) }
+
+    A(t, 'keydown')
+    A(t, 'keyup')
+};
+
+function A(o,m) {
+    document.addEventListener(m, function(e) {
+        c = e.keyCode
+        $K.h[c] = !(m == 'keyup')
+        for(i = C(o); i--;) {
+            if((c == o[i].k) && (!$K.h[c])) o[i].f()
+        }
+    }, false)
+};
 
 /**
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
-(function I() {
-    P = window['webkitRequestAnimationFrame'] // setup the pacemaker
+(function() {
+    P  = window['webkitRequestAnimationFrame'] // setup the pacemaker
+    $K = new K()
     L() //kick of the recursive main loop
 }())
