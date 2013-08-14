@@ -344,14 +344,19 @@ function I() {
     v.width = v.height = w = h = 170 // size of the vanvas
     var s = 6, m
 
-    for(i=w/10; i--;) l.s.push(new S()) // star generator
+    // using nested loops to load image, sgenerate the ship, the enemies and the stars.
+    // 2 images need to be loaded, 1 of which generates 5 enemies so we break loops
+    // once to generate the 5 enemies and once to generate the ship. combined, we get
+    // 10 iterations which is exactly the number of stars we want to generate so
+    // instead of 3 individual loops, we don 1 nested to acheive the same
     for(i=2; i--;) { //image loader
         m = new Image()
         m.src = i+'.png'
-        !C(l.m) ? l.m.push(new O(w/2,h-m.height,m)) : (m = new O(s,s,m)) // add ship
-    }
-    for(i=5; i--;) {
-        l.o.push(new O((i*m.w+s+s*i),s,m.i)) // generate enemy grid
+        i>0 ? (m = new O(s,s,m)) : l.m.push(new O(w/2,h-m.height,m))// add ship
+        for (j=5;j--;) {
+            i>0 && l.o.push(new O((j*m.w+s+s*j),s,m.i)) // generate enemy grid
+            l.s.push(new S()) // add stars
+        }
     }
 
     L() //kick off the recursive main loop
