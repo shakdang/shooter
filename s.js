@@ -224,7 +224,7 @@
 //     })
 // }
 
-var u, v, x, i = 0, w = h = 100, d = document
+var u, v, x, i = 0, w = h = 100, d = document, l = {s:[],i:[]}
 
 /**
  * Main drawing function
@@ -236,13 +236,35 @@ function D() {
     $K.kd(37) && console.log('left')
     $K.kd(39) && console.log('right')
     $K.b.push({k:32,f:fire})
+
+    for (o in l) l[o].map(r)
 }
 
 function fire() {
     console.log('fire')
 }
 
+function r(o) { o.r() }
+
 // OBJECTS
+
+/** @constructor*/
+function S() {
+    var o = this
+    o.x = R(w,u)
+    o.y = R(h,u)
+    o.h = o.w = (250/(250+R(3E2,2E3)))*10
+
+    this.r = function() {
+        o.y += o.h
+        if (o.y > h) {
+            o.y -= h
+            o.x = R(w,u)
+        }
+        x.fillStyle = '#CCC'
+        x.fillRect(o.x, o.y, o.w, o.h)
+    }
+}
 
 // UTILITIES
 
@@ -303,5 +325,8 @@ function A(m) {
     x = v.getContext('2d')
     v.width  = w
     v.height = h
+
+    for(i=w/10; i--;) l.s.push(new S()) // star generator
+
     L() //kick of the recursive main loop
 }())
