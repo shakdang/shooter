@@ -224,7 +224,7 @@
 //     })
 // }
 
-var u, v, x, i = 0, w = h = 100, d = document, l = {s:[],i:[]}
+var u, v, x, i=0, d=document, l={s:[],o:[]}, q=[]
 
 /**
  * Main drawing function
@@ -233,18 +233,14 @@ function D() {
     x.fillStyle = '#EEE'
     x.fillRect(0,0,v.width,v.height)
 
-    $K.kd(37) && console.log('left')
-    $K.kd(39) && console.log('right')
-    $K.b.push({k:32,f:fire})
+    $K.kd(37) && l.o[0].ml()
+    $K.kd(39) && l.o[0].mr()
+    $K.b.push({k:32,f:function(){ console.log('fire')}})
 
     for (o in l) l[o].map(r)
 }
 
-function fire() {
-    console.log('fire')
-}
-
-function r(o) { o.r() }
+function r(o) { o.r() } // renderer for the map function
 
 // OBJECTS
 
@@ -263,6 +259,27 @@ function S() {
         }
         x.fillStyle = '#CCC'
         x.fillRect(o.x, o.y, o.w, o.h)
+    }
+}
+
+function O(p,y,i) {
+    var o = this
+    o.x = p
+    o.y = y
+    o.h = 17
+    o.w = 27
+    o.i = i
+
+    this.r = function() {
+        x.drawImage(o.i, o.x, o.y)
+    }
+
+    this.ml = function() {
+        o.x > 0 && (o.x-=2)
+    }
+
+    this.mr = function() {
+        (o.x + o.w) < w && (o.x+=2)
     }
 }
 
@@ -310,7 +327,7 @@ function A(m) {
         for(i = C(b); i--;) {
             if((c == b[i].k) && (!a[c])) b[i].f()
         }
-    }, false)
+    }, 0)
 };
 
 /**
@@ -323,10 +340,14 @@ function A(m) {
     // initialise canvas
     v = d.getElementById('g')
     x = v.getContext('2d')
-    v.width  = w
-    v.height = h
+    v.width = v.height = w = h = 100
 
     for(i=w/10; i--;) l.s.push(new S()) // star generator
-
-    L() //kick of the recursive main loop
+    for(i=2; i--;) { // image loader
+        m = new Image()
+        m.src = i+'.png'
+        q.push(m)
+    }
+    l.o.push(new O(w/2,h-ih.height,q[0]))
+    L() //kick off the recursive main loop
 }())
