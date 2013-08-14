@@ -224,27 +224,36 @@
 //     })
 // }
 
-var i = 0,
-    u = undefined
+var u, v, x, i = 0, w = h = 100, d = document
 
 /**
  * Main drawing function
  */
 function D() {
+    x.fillStyle = '#EEE'
+    x.fillRect(0,0,v.width,v.height)
+
     $K.kd(37) && console.log('left')
     $K.kd(39) && console.log('right')
-    //$K.al(32, fire)
-    $K.t.push({k:32,f:fire})
+    $K.b.push({k:32,f:fire})
 }
 
 function fire() {
     console.log('fire')
 }
 
+// OBJECTS
+
 // UTILITIES
 
+/**
+ * javascript object length alias
+ */
 function C(o) { return o.length };
 
+/**
+ * Random number generator
+ */
 function R(n,x) {
     if (x === u) {
         x = n
@@ -263,21 +272,21 @@ function L() { D(); P(L) };
  * @constructor
  */
 function K() {
-    h = this.h = {} // key press events register
-    t = this.t = [] // key press tracker
+    a = this.a = {} // key press events register
+    b = this.b = [] // key press tracker
 
-    this.kd = function (k) { return(h[k]) } // is keydown
+    this.kd = function (k) { return(a[k]) } // is keydown
 
-    A(t, h, 'keydown')
-    A(t, h, 'keyup')
+    A('keydown')
+    A('keyup')
 };
 
-function A(o,h,m) {
-    document.addEventListener(m, function(e) {
+function A(m) {
+    d.addEventListener(m, function(e) {
         c = e.keyCode
-        h[c] = !(m == 'keyup')
-        for(i = C(o); i--;) {
-            if((c == o[i].k) && (!h[c])) o[i].f()
+        a[c] = !(m == 'keyup')
+        for(i = C(b); i--;) {
+            if((c == b[i].k) && (!a[c])) b[i].f()
         }
     }, false)
 };
@@ -288,5 +297,11 @@ function A(o,h,m) {
 (function() {
     P  = window['webkitRequestAnimationFrame'] // setup the pacemaker
     $K = new K()
+
+    // initialise canvas
+    v = d.getElementById('g')
+    x = v.getContext('2d')
+    v.width  = w
+    v.height = h
     L() //kick of the recursive main loop
 }())
