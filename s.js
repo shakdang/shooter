@@ -224,7 +224,7 @@
 //     })
 // }
 
-var u, v, x, i=0, d=document, l={s:[],o:[]}, q=[]
+var u, v, x, i=0, d=document, l={s:[],o:[],m:[]}
 
 /**
  * Main drawing function
@@ -233,8 +233,8 @@ function D() {
     x.fillStyle = '#EEE'
     x.fillRect(0,0,v.width,v.height)
 
-    $K.kd(37) && l.o[0].ml()
-    $K.kd(39) && l.o[0].mr()
+    $K.kd(37) && l.m[0].ml()
+    $K.kd(39) && l.m[0].mr()
     $K.b.push({k:32,f:function(){ console.log('fire')}})
 
     for (o in l) l[o].map(r)
@@ -262,13 +262,14 @@ function S() {
     }
 }
 
-function O(p,y,i) {
+/** @constructor*/
+function O(p,y,m) {
     var o = this
     o.x = p
     o.y = y
-    o.h = 17
-    o.w = 27
-    o.i = i
+    o.h = m.height
+    o.w = m.width
+    o.i = m
 
     this.r = function() {
         x.drawImage(o.i, o.x, o.y)
@@ -333,21 +334,27 @@ function A(m) {
 /**
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
-(function() {
+function I() {
     P  = window['webkitRequestAnimationFrame'] // setup the pacemaker
     $K = new K()
 
     // initialise canvas
     v = d.getElementById('g')
     x = v.getContext('2d')
-    v.width = v.height = w = h = 100
+    v.width = v.height = w = h = 170 // size of the vanvas
+    var s = 6, m
 
     for(i=w/10; i--;) l.s.push(new S()) // star generator
-    for(i=2; i--;) { // image loader
+    for(i=2; i--;) { //image loader
         m = new Image()
         m.src = i+'.png'
-        q.push(m)
+        !C(l.m) ? l.m.push(new O(w/2,h-m.height,m)) : (m = new O(s,s,m)) // add ship
     }
-    l.o.push(new O(w/2,h-ih.height,q[0]))
+    for(i=5; i--;) {
+        l.o.push(new O((i*m.w+s+s*i),s,m.i)) // generate enemy grid
+    }
+
     L() //kick off the recursive main loop
-}())
+}
+
+window.addEventListener('load', I, false);
