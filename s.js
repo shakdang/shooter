@@ -224,15 +224,21 @@
 //     })
 // }
 
-var i=0
+var i = 0,
+    u = undefined
 
 /**
  * Main drawing function
  */
 function D() {
-    // $K.kd(37) && console.log('left')
-    // $K.kd(39) && console.log('right')
-    // //$K.al(32, fire)
+    $K.kd(37) && console.log('left')
+    $K.kd(39) && console.log('right')
+    //$K.al(32, fire)
+    $K.t.push({k:32,f:fire})
+}
+
+function fire() {
+    console.log('fire')
 }
 
 // UTILITIES
@@ -249,22 +255,21 @@ function L() { D(); P(L) };
  * @constructor
  */
 function K() {
-    this.h = {} // key press events register
-    t = [] // key press tracker
+    h = this.h = {} // key press events register
+    t = this.t = [] // key press tracker
 
-    this.kd = function (k) { return(this.h[k]) } // is keydown
-    this.al = function (k,f) { t.push({k:k,f:f}) }
+    this.kd = function (k) { return(h[k]) } // is keydown
 
-    A(t, 'keydown')
-    A(t, 'keyup')
+    A(t, h, 'keydown')
+    A(t, h, 'keyup')
 };
 
-function A(o,m) {
+function A(o,h,m) {
     document.addEventListener(m, function(e) {
         c = e.keyCode
-        $K.h[c] = !(m == 'keyup')
+        h[c] = !(m == 'keyup')
         for(i = C(o); i--;) {
-            if((c == o[i].k) && (!$K.h[c])) o[i].f()
+            if((c == o[i].k) && (!h[c])) o[i].f()
         }
     }, false)
 };
