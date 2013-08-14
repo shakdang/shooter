@@ -245,6 +245,14 @@ function fire() {
 
 function C(o) { return o.length };
 
+function R(n,x) {
+    if (x === u) {
+        x = n
+        n = 0
+    }
+    return (Math.random() * (x-n)) + n
+}
+
 /**
  * Main recursive loop for drawing
  */
