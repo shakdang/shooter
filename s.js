@@ -47,6 +47,7 @@
 
 // // FIRE PRESSED
 // function _fp() {
+//     console.log('asd')
 //     $b.push(new _B(ms.x + ms.w/2, ms.y))
 // }
 
@@ -224,7 +225,9 @@
 //     })
 // }
 
-var u, v, x, i=0, d=document, l={s:[],o:[],m:[]}
+// --------------------------------------------------
+
+var u, v, x, i=0, d=document, l={s:[],o:[],m:[],f:[]}
 
 /**
  * Main drawing function
@@ -235,8 +238,7 @@ function D() {
 
     $K.kd(37) && l.m[0].ml()
     $K.kd(39) && l.m[0].mr()
-    $K.b.push({k:32,f:function(){ console.log('fire')}})
-
+    
     for (o in l) l[o].map(r)
 }
 
@@ -245,11 +247,11 @@ function r(o) { o.r() } // renderer for the map function
 // OBJECTS
 
 /** @constructor*/
-function S() {
+function S(p,y,m) {
     var o = this
-    o.x = R(w,u)
-    o.y = R(h,u)
-    o.h = o.w = (250/(250+R(3E2,2E3)))*10
+    o.x = x
+    o.y = y
+    o.h = o.w = m
 
     this.r = function() {
         o.y += o.h
@@ -289,7 +291,7 @@ function O(p,y,m) {
 /**
  * javascript object length alias
  */
-function C(o) { return o.length };
+function C(o) { return o.length }
 
 /**
  * Random number generator
@@ -312,21 +314,22 @@ function L() { D(); P(L) };
  * @constructor
  */
 function K() {
-    a = this.a = {} // key press events register
-    b = this.b = [] // key press tracker
+    var o = this
+    o.a = {} // key press events register
+    o.b = [] // key press tracker
 
-    this.kd = function (k) { return(a[k]) } // is keydown
+    this.kd = function (k) { return(o.a[k]) } // is keydown
 
-    A('keydown')
-    A('keyup')
+    A(o,'keydown')
+    A(o,'keyup')
 };
 
-function A(m) {
+function A(o,m) {
     d.addEventListener(m, function(e) {
         c = e.keyCode
-        a[c] = !(m == 'keyup')
-        for(i = C(b); i--;) {
-            if((c == b[i].k) && (!a[c])) b[i].f()
+        o.a[c] = !(m == 'keyup')
+        for(i = C(o.b); i--;) {
+            if((c == o.b[i].k) && (!o.a[c])) o.b[i].f()
         }
     }, 0)
 };
@@ -355,9 +358,11 @@ function I() {
         i>0 ? (m = new O(s,s,m)) : l.m.push(new O(w/2,h-m.height,m))// add ship
         for (j=5;j--;) {
             i>0 && l.o.push(new O((j*m.w+s+s*j),s,m.i)) // generate enemy grid
-            l.s.push(new S()) // add stars
+            l.s.push(new S(R(w,u),R(h,u),(250/(250+R(3E2,2E3)))*10)) // add stars
         }
     }
+    $K.b.push({k:32,f:function(){ m = l.m[0]; l.f.push(new S(m.x + m.w/2, m.y, 4)) }})
+
 
     L() //kick off the recursive main loop
 }
