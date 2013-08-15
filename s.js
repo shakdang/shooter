@@ -227,27 +227,37 @@
 
 // --------------------------------------------------
 
-var u, v, x, i=0, d=document, l={s:[],o:[],m:[],f:[]}
+var
+    u,                         // undefined alias
+    d = document,              // document alias
+    v = d.getElementById('g'), // canvas
+    c = v.getContext('2d'),    // context 2d
+    k = new K(),               // key tracker
+    i = 0,                     // counter
+    l = {                      // object collection
+        s:[],                  // stars
+        o:[],                  // enemies
+        m:[],                  // ship/s
+        f:[]                   // bullets
+    }
 
 /**
  * Main drawing function
  */
 function D() {
-    x.fillStyle = '#EEE'
-    x.fillRect(0,0,v.width,v.height)
+    c.fillStyle = '#EEE'
+    c.fillRect(0,0,v.width,v.height)
 
-    $K.kd(37) && l.m[0].ml()
-    $K.kd(39) && l.m[0].mr()
-    
-    for (o in l) l[o].map(r)
+    k.l(37) && l.m[0].m(-2) // key left press check
+    k.l(39) && l.m[0].m(2) // key right press check
+
+    for (o in l) l[o].map(function(o){o.r()}) // render the object collection
 }
-
-function r(o) { o.r() } // renderer for the map function
 
 // OBJECTS
 
 /** @constructor*/
-function S(p,y,m) {
+function S(x,y,m) {
     var o = this
     o.x = x
     o.y = y
@@ -259,30 +269,26 @@ function S(p,y,m) {
             o.y -= h
             o.x = R(w,u)
         }
-        x.fillStyle = '#CCC'
-        x.fillRect(o.x, o.y, o.w, o.h)
+        c.fillStyle = '#CCC'
+        c.fillRect(o.x, o.y, o.w, o.h)
     }
 }
 
 /** @constructor*/
-function O(p,y,m) {
+function O(x,y,m) {
     var o = this
-    o.x = p
+    o.x = x
     o.y = y
     o.h = m.height
     o.w = m.width
     o.i = m
 
     this.r = function() {
-        x.drawImage(o.i, o.x, o.y)
+        c.drawImage(o.i, o.x, o.y)
     }
 
-    this.ml = function() {
-        o.x > 0 && (o.x-=2)
-    }
-
-    this.mr = function() {
-        (o.x + o.w) < w && (o.x+=2)
+    this.m = function(d) {
+        (o.x + d > 0 && o.x + d + o.w < w) && (o.x += d)
     }
 }
 
@@ -318,7 +324,7 @@ function K() {
     o.a = {} // key press events register
     o.b = [] // key press tracker
 
-    this.kd = function (k) { return(o.a[k]) } // is keydown
+    this.l = function (k) { return(o.a[k]) } // is keydown
 
     A(o,'keydown')
     A(o,'keyup')
@@ -326,7 +332,7 @@ function K() {
 
 function A(o,m) {
     d.addEventListener(m, function(e) {
-        c = e.keyCode
+        var c = e.keyCode
         o.a[c] = !(m == 'keyup')
         for(i = C(o.b); i--;) {
             if((c == o.b[i].k) && (!o.a[c])) o.b[i].f()
@@ -338,12 +344,7 @@ function A(o,m) {
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
 function I() {
-    P  = window['webkitRequestAnimationFrame'] // setup the pacemaker
-    $K = new K()
-
-    // initialise canvas
-    v = d.getElementById('g')
-    x = v.getContext('2d')
+    P  = window['webkitRequestAnimationFrame'] // setup the pacemake
     v.width = v.height = w = h = 170 // size of the vanvas
     var s = 6, m
 
@@ -361,8 +362,7 @@ function I() {
             l.s.push(new S(R(w,u),R(h,u),(250/(250+R(3E2,2E3)))*10)) // add stars
         }
     }
-    $K.b.push({k:32,f:function(){ m = l.m[0]; l.f.push(new S(m.x + m.w/2, m.y, 4)) }})
-
+    k.b.push({k:32,f:function(){ m = l.m[0]; l.f.push(new S(m.x + m.w/2, m.y, 4)) }})
 
     L() //kick off the recursive main loop
 }
