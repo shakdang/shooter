@@ -228,171 +228,157 @@
 // --------------------------------------------------
 
 // invader
-// 10100000010110010000100110111111 //2690189759
-// 11011110111101111111111111111111 //3740794879
-// 11111111011111111110001000000    //535821376
-// 100010000000010                  //17410
+// 11100101000000101100100001001101 = 3842164813
+// 11111110111101111011111111111111 = 4277649407
+// 111111111111101111111111000      = 134209528
+// 1000000100010000000010           = 2114562
 
-// var
-//     u,                         // undefined alias
-//     d = document,              // document alias
-//     v = d.getElementById('g'), // canvas
-//     c = v.getContext('2d'),    // context 2d
-//     k = new K(),               // key tracker
-//     i = 0,                     // counter
-//     l = {                      // object collection
-//         s:[],                  // stars
-//         o:[],                  // enemies
-//         m:[],                  // ship/s
-//         f:[]                   // bullets
-//     }
+// ship
+// 11101000000100000001111111111101 = 3893370877
+// 1111111111111111111111111        = 33554431
 
-// /**
-//  * Main drawing function
-//  */
-// function D() {
-//     c.fillStyle = '#EEE'
-//     c.fillRect(0,0,v.width,v.height)
+// bullet
+// 10010111111                      = 1215
 
-//     k.l(37) && l.m[0].m(-2) // key left press check
-//     k.l(39) && l.m[0].m(2) // key right press check
-
-//     for (o in l) l[o].map(function(o){o.r()}) // render the object collection
-// }
-
-// // OBJECTS
-
-// /** @constructor*/
-// function S(x,y,m) {
-//     var o = this
-//     o.x = x
-//     o.y = y
-//     o.h = o.w = m
-
-//     this.r = function() {
-//         o.y += o.h
-//         if (o.y > h) {
-//             o.y -= h
-//             o.x = R(w)
-//         }
-//         c.fillStyle = '#CCC'
-//         c.fillRect(o.x, o.y, o.w, o.h)
-//     }
-// }
-
-// /** @constructor*/
-// function O(x,y,m) {
-//     var o = this
-//     o.x = x
-//     o.y = y
-//     o.h = m.height
-//     o.w = m.width
-//     o.i = m
-
-//     this.r = function() {
-//         c.drawImage(o.i, o.x, o.y)
-//     }
-
-//     this.m = function(d) {
-//         (o.x + d > 0 && o.x + d + o.w < w) && (o.x += d)
-//     }
-// }
-
-// // UTILITIES
-
-// /**
-//  * javascript object length alias
-//  */
-// function C(o) { return o.length }
-
-// /**
-//  * Random number generator returns random number between x and 1 (inclusive)
-//  */
-// function R(x) {
-//     return (Math.random()*x)+1
-// }
-
-// /**
-//  * Main recursive loop for drawing
-//  */
-// function L() { D(); P(L) };
-
-// /**
-//  * Keytracker
-//  * @constructor
-//  */
-// function K() {
-//     var o = this
-//     o.a = {} // key press events register
-//     o.b = [] // key press tracker
-
-//     this.l = function (k) { return(o.a[k]) } // is keydown
-
-//     A(o,'keydown')
-//     A(o,'keyup')
-// };
-
-// function A(o,m) {
-//     d.addEventListener(m, function(e) {
-//         var c = e.keyCode
-//         o.a[c] = !(m == 'keyup')
-//         for(i = C(o.b); i--;) {
-//             if((c == o.b[i].k) && (!o.a[c])) o.b[i].f()
-//         }
-//     }, 0)
-// };
-
-// /**
-//  * Initialising bootstrap, is only called once as soon as it is loaded
-//  */
-// function I() {
-//     P  = window['webkitRequestAnimationFrame'] // setup the pacemake
-//     v.width = v.height = w = h = 170 // size of the vanvas
-//     var s = 6, m
-
-//     // using nested loops to load image, sgenerate the ship, the enemies and the stars.
-//     // 2 images need to be loaded, 1 of which generates 5 enemies so we break loops
-//     // once to generate the 5 enemies and once to generate the ship. combined, we get
-//     // 10 iterations which is exactly the number of stars we want to generate so
-//     // instead of 3 individual loops, we don 1 nested to acheive the same
-//     for(i=2; i--;) { //image loader
-//         m = new Image()
-//         m.src = i+'.png'
-//         i>0 ? (m = new O(s,s,m)) : l.m.push(new O(w/2,h-m.height,m))// add ship
-//         for (j=5;j--;) {
-//             i>0 && l.o.push(new O((j*m.w+s+s*j),s,m.i)) // generate enemy grid
-//             l.s.push(new S(R(w),R(h),(100/(400+R(2E3)))*10)) // add stars
-//         }
-//     }
-//     k.b.push({k:32,f:function(){ m = l.m[0]; l.f.push(new S(m.x + m.w/2, m.y, 4)) }})
-
-//     L() //kick off the recursive main loop
-// }
-
-// window.addEventListener('load', I, false);
-
+// star
+// 100011                           = 35
 
 var
     u,                         // undefined alias
     d = document,              // document alias
     v = d.getElementById('g'), // canvas
-    c = v.getContext('2d')    // context 2d
+    c = v.getContext('2d'),    // context 2d
+    k = new K(),               // key tracker
+    i = 0,                     // counter
+    l = {                      // object collection
+        t:[],                  // stars
+        e:[],                  // enemies
+        s:[],                  // ship/s
+        b:[]                   // bullets
+    },
+    // from LSB -> MSB: 1 bit marker followed by 4 bits of shape width followed by shape matrix
+    m = {
+        e: [3842164813,4277649407,134209528,2114562], // enemy shape and size bit template
+        s: [3893370877,33554431],                     // ship shape and size
+        b: [1215],                                    // bullet shape and size matrix
+        t: [35]                                       // star shape and size
+    },
+    $ = 1
+
+/**
+ * Main drawing function
+ */
+function D() {
+    c.fillStyle = '#EEE'
+    c.fillRect(0,0,v.width,v.height)
+
+    k.l(37) && l.s[0].m(-2) // key left press check
+    k.l(39) && l.s[0].m(2)  // key right press check
+
+    l.t.map(function(o,i){o.y += o.h; if (o.y > h){ o.y -=h; o.x = R(w)}}) // update stars
+    l.b.map(function(o,i){o.y < 0 ? l.b.splice(i,1) : o.y -= o.h}) // update bullets
+
+    for (o in l) l[o].map(function(o,i){o.r()}) // render the object collection
+}
+
+// OBJECTS
+
+/**
+ * Generates and renders all shapes that are drawn for this game using the bit templates
+ * @constructor
+ */
+function Z(x,y,m,s) {
+    var o = this                                     // shape local reference
+    o.x = x                                          // shape position x
+    o.y = y                                          // shape position y
+    o.w = 16^(parseInt(m.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
+    o.h = C(m)/o.w * s                               // shape height
+    o.i = m                                          // shape matrix
+    o.s = s                                          // shape scaling multiplier
+
+    this.r = function() {
+        o.i.map(function(v,i){
+            c.fillStyle = v > 0 ? '#000' : '#EEE'    // we only do two colours :D
+            c.fillRect((i%o.w*o.s)+o.x, (Math.floor(i/o.w)*o.s)+o.y, $,o.s)
+        })
+    }
+
+    this.m = function(d) {
+        (o.x + d > 0 && o.x + d + o.w < w) && (o.x += (d * o.s)) // shape movement function (scaled)
+    }
+}
+
+// UTILITIES
+
+/**
+ * javascript object length alias
+ */
+function C(o) { return o.length }
+
+function X(o) {
+        var r = []
+        o.map(function(i){r=r.concat(i.toString(2).split(''))}) // converts int to bit map and then to bit array
+    return r
+}
+
+/**
+ * Random number generator returns random number between x and 1 (inclusive)
+ */
+function R(x) {
+    return (Math.random()*x)+1
+}
+
+/**
+ * Main recursive loop for drawing
+ */
+function L() { D(); P(L) };
+
+/**
+ * Keytracker
+ * @constructor
+ */
+function K() {
+    var o = this
+    o.a = {} // key press events register
+    o.b = [] // key press tracker
+
+    this.l = function (k) { return(o.a[k]) } // is keydown
+
+    A(o,'keydown')
+    A(o,'keyup')
+};
+
+function A(o,m) {
+    d.addEventListener(m, function(e) {
+        var c = e.keyCode
+        o.a[c] = !(m == 'keyup')
+        for(i = C(o.b); i--;) {
+            if((c == o.b[i].k) && (!o.a[c])) o.b[i].f()
+        }
+    }, 0)
+};
 
 /**
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
 function I() {
+    P  = window['webkitRequestAnimationFrame'] // setup the pacemake
     v.width = v.height = w = h = 170 // size of the vanvas
-    c.fillStyle = '#000'
-    c.fillRect(0,0,v.width,v.height)
-    var e = [2690189759,3740794879,535821376,17410]
-    var bits = []
-    e.map(function(i){bits = bits.concat(i.toString(2).split(''))})
-    s = 1
-    bits.map(function(v,i){
-        c.fillStyle = v > 0 ? '#FFF' : '#000'
-        c.fillRect(i%12, Math.floor(i/12), s,s)
-    })
+    var s = 6// spacing
+
+    for(i=2; i--;) {
+        // we dont know the width or height of the shape unless it has been loaded
+        // as this information is embded within the bit map, so we have to make two passes
+        i > 0 ? l.s.push(new Z(w/2, h, X(m.s), $)) : l.s[0].y = h-l.s[0].h                 // first load ship then position it in the 2nd pass
+        for (j=5;j--;) {
+            i>0 ? l.e.push(new Z(0,s,X(m.e), $)) : l.e[j].x =  j*l.e[j].w*$+s+s*j          // load enemy grid and then position it in the 2nd pass
+            l.t.push(new Z(R(w),R(h),X(m.t),(100/(400+R(2E3)))*10))                        // add 10 stars which will be recycled througout
+        }
+    }
+    k.b.push({k:32,f:function(){ var s=l.s[0]; l.b.push(new Z(s.x+s.w/2,s.y,X(m.b),$)) }}) // key listener for the fire button
+
+    L() //kick off the recursive main loop
 }
 
 window.addEventListener('load', I, false);
+
