@@ -298,7 +298,7 @@ function Z(x,y,m,s) {
 
     this.r = function() {
         o.i.map(function(v,i){
-            c.fillStyle = v > 0 ? '#000' : '#EEE'    // we only do two colours :D
+            c.fillStyle = v > 0 ? '#FFF' : '#EEE'    // we only do two colours :D
             c.fillRect((i%o.w*o.s)+o.x, (Math.floor(i/o.w)*o.s)+o.y, $,o.s)
         })
     }
@@ -315,18 +315,20 @@ function Z(x,y,m,s) {
  */
 function C(o) { return o.length }
 
+/**
+ * converts int to bit map and then to bit array
+ */
 function X(o) {
-        var r = []
-        o.map(function(i){r=r.concat(i.toString(2).split(''))}) // converts int to bit map and then to bit array
+    var r = []
+    o.map(function(i){r=r.concat(i.toString(2).split(''))})
+
     return r
 }
 
 /**
  * Random number generator returns random number between x and 1 (inclusive)
  */
-function R(x) {
-    return (Math.random()*x)+1
-}
+function R(x) { return (Math.random()*x)+1 }
 
 /**
  * Main recursive loop for drawing
@@ -367,15 +369,15 @@ function I() {
     var s = 6// spacing
 
     for(i=2; i--;) {
-        // we dont know the width or height of the shape unless it has been loaded
-        // as this information is embded within the bit map, so we have to make two passes
-        i > 0 ? l.s.push(new Z(w/2, h, X(m.s), $)) : l.s[0].y = h-l.s[0].h                 // first load ship then position it in the 2nd pass
+        // we dont know the width or height of the shape unless it has been loaded as
+        // this information is embded within the bit map, so we have to make two passes
+        i > 0 ? l.s.push(new Z(w/2, h, X(m.s), $)) : l.s[0].y = h-l.s[0].h                    // first load ship then position it in the 2nd pass
         for (j=5;j--;) {
-            i>0 ? l.e.push(new Z(0,s,X(m.e), $)) : l.e[j].x =  j*l.e[j].w*$+s+s*j          // load enemy grid and then position it in the 2nd pass
-            l.t.push(new Z(R(w),R(h),X(m.t),(100/(400+R(2E3)))*10))                        // add 10 stars which will be recycled througout
+            i > 0 ? l.e.push(new Z(0, s, X(m.e), $)) : l.e[j].x = j*l.e[j].w*$+s+s*j          // load enemy grid and then position it in the 2nd pass
+            l.t.push(new Z(R(w), R(h), X(m.t), (100/(400+R(2E3)))*10))                        // add 10 stars which will be recycled througout
         }
     }
-    k.b.push({k:32,f:function(){ var s=l.s[0]; l.b.push(new Z(s.x+s.w/2,s.y,X(m.b),$)) }}) // key listener for the fire button
+    k.b.push({k:32,f:function(){ var s=l.s[0]; l.b.push(new Z(s.x+s.w/2, s.y, X(m.b), $)) }}) // key listener for the fire button
 
     L() //kick off the recursive main loop
 }
