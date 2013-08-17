@@ -20,7 +20,6 @@ var
     u,                         // undefined alias
     v = document.getElementById('g'), // canvas
     p = v.getContext('2d'),    // context 2d
-    k,                         // key tracker
     i = 0,                     // counter
     l = {                      // object collection
         t:[],                  // stars
@@ -35,16 +34,16 @@ var
         b: [4863],                                    // bullet shape and size matrix
         t: [35]                                       // star shape and size
     },
-    a = {},
+    k = {},
     n = ['#000', '#FFF']
 
 /**
  * Main drawing function
  */
-D = function(x,y,m,s) {
+D = function(a,b,c,d) {
     Q(0,0,w,0)
 
-    l.s[0].m(a[37]?-2:a[39]?2:0) // if left key pressed then go left else if right key pressed go right else don't do anything
+    l.s[0].m(k[37]?-2:k[39]?2:0) // if left key pressed then go left else if right key pressed go right else don't do anything
 
     // Simple collision detection code
     l.b.map(function(b,i){
@@ -53,10 +52,10 @@ D = function(x,y,m,s) {
         })
     })
 
-    l.t.map(function(x,y,m,s){(x.y += x.h), x.y > w && (x.y -=w,x.x = R(w))}) // update stars
-    l.b.map(function(x,y,m,s){x.y < 0 ? l.b.splice(y,1) : x.y -= x.h})        // update bullets
+    l.t.map(function(a,b,c,d){(a.y += a.h), a.y > w && (a.y -=w,a.a = R(w))}) // update stars
+    l.b.map(function(a,b,c,d){a.y < 0 ? l.b.splice(b,1) : a.y -= a.h})        // update bullets
     
-    for (o in l) l[o].map(function(x,y,m,s){x.r()})                              // render the object collection
+    for (o in l) l[o].map(function(a,b,c,d){a.r()})                              // render the object collection
     P(D)                                                                   // get the next animation frame and draw again
 },
 
@@ -66,16 +65,16 @@ D = function(x,y,m,s) {
  * Generates and renders all shapes that are drawn for this game using the bit templates
  * @constructor
  */
-Z =function(x,y,m,s) {
+Z =function(a,b,c,d) {
     var o = this                                     // shape local reference
-    o.x = x                                          // shape position x
-    o.y = y                                          // shape position y
-    o.w = 16^(parseInt(m.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
-    o.h = C(m)/o.w * s                               // shape height
-    o.i = m                                          // shape matrix
-    o.e = s                                          // shape scaling multiplier
+    o.x = a                                          // shape position x
+    o.y = b                                          // shape position y
+    o.w = 16^(parseInt(c.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
+    o.h = C(c)/o.w * d                               // shape height
+    o.i = c                                          // shape matrix
+    o.e = d                                          // shape scaling multiplier
 
-    this.r = function(x,y,m,s) {
+    this.r = function(a,b,c,d) {
         with(o) {
             i.map(function(v,i){
                 Q((i%w*e)+x, (~~(i/w)*e)+y, e, v)
@@ -89,33 +88,33 @@ Z =function(x,y,m,s) {
 },
 
 // UTILITIES
-Q = function(x,y,m,s) {
-    p.fillStyle = n[s]
-    p.fillRect(x,y,m,m)
+Q = function(a,b,c,d) {
+    p.fillStyle = n[d]
+    p.fillRect(a,b,c,c)
 },
 /**
  * javascript object length alias
  */
-C = function(x,y,m,s) { return x.length },
+C = function(a,b,c,d) { return a.length },
 
 /**
  * converts int to bit map and then to bit array
  */
-X = function (x,y,m,s) {
+X = function (a,b,c,d) {
     var r = []
-    x.map(function(i){r=r.concat(i.toString(2).split(''))})
+    a.map(function(i){r=r.concat(i.toString(2).split(''))})
     return r
 },
 
 /**
  * Random number generator returns random number between x and 1 (inclusive)
  */
-R = function(x,y,m,s) { return (Math.random()*x)+1 };
+R = function(a,b,c,d) { return (Math.random()*a)+1 };
 
 /**
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
-(function(x,y,m,s) {
+(function(a,b,c,d) {
     P  = window['requestAnimationFrame'] // setup the pacemake
     v.width = v.height = w = 186 // size of the canvas
 
@@ -128,9 +127,9 @@ R = function(x,y,m,s) { return (Math.random()*x)+1 };
             l.t.push(new Z(R(w), R(w), X(t.t), (105/(40+R(2E2)))))            // add i*j stars which will be recycled througout
         }
     }
-    window.onkeyup = window.onkeydown = function(x,y,m,s) {
-        a[x.keyCode] = !(x.type == 'keyup')
-        a[32] && (s=l.s[0], l.b.push(new Z(s.x, s.y, X(t.b), 1)))
+    window.onkeyup = window.onkeydown = function(a,b,c,d) {
+        k[a.keyCode] = !(a.type == 'keyup')
+        k[32] && (d=l.s[0], l.b.push(new Z(d.x, d.y, X(t.b), 1)))
     };
     D() //kick off the recursive drawing loop
 })();
