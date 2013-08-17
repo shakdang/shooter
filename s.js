@@ -18,9 +18,8 @@
 
 var
     u,                         // undefined alias
-    d = document,              // document alias
-    v = d.getElementById('g'), // canvas
-    c = v.getContext('2d'),    // context 2d
+    v = document.getElementById('g'), // canvas
+    p = v.getContext('2d'),    // context 2d
     k,                         // key tracker
     i = 0,                     // counter
     l = {                      // object collection
@@ -30,45 +29,36 @@ var
         b:[]                   // bullets
     },
     // from LSB -> MSB: 1 bit marker followed by 4 bits of shape width followed by shape matrix
-    m = {
+    t = {
         e: [3842164813,4277649407,134209528,2114562], // enemy shape and size bit template
         s: [3893370877,33554431],                     // ship shape and size
         b: [4863],                                    // bullet shape and size matrix
         t: [35]                                       // star shape and size
     },
     a = {},
-    b = []
+    n = ['#000', '#FFF']
 
 /**
  * Main drawing function
  */
-function D() {
-    c.fillStyle = '#000'
-    c.fillRect(0,0,w,h)
+D = function(x,y,m,s) {
+    Q(0,0,w,0)
 
-    a[37] && l.s[0].m(-2) // key left press check
-    a[39] && l.s[0].m(2)  // key right press check
+    l.s[0].m(a[37]?-2:a[39]?2:0) // if left key pressed then go left else if right key pressed go right else don't do anything
 
-    for (i=C(l.b); i--;) {
-        var b = l.b[i]
-        for (var j=C(l.e); j--;) {
-            var e = l.e[j]
-            if (b.x < (e.x + e.w) && b.x > e.x) {
-                if (b.y > e.y && b.y < (e.y + e.h)) {
-                    l.e.splice(j,1)
-                    l.b.splice(i,1)
-                    break
-                }
-            }
-        }
-    }
+    // Simple collision detection code
+    l.b.map(function(b,i){
+        l.e.map(function(e,j){
+            b.x < (e.x + e.w) && b.x > e.x && b.y > e.y && b.y < (e.y + e.h) && l.e.splice(j,1) && l.b.splice(i,1)
+        })
+    })
 
-    l.t.map(function(o,i){o.y += o.h; if (o.y > h){ o.y -=h; o.x = R(w)}}) // update stars
-    l.b.map(function(o,i){o.y < 0 ? l.b.splice(i,1) : o.y -= o.h})         // update bullets
+    l.t.map(function(x,y,m,s){(x.y += x.h), x.y > w && (x.y -=w,x.x = R(w))}) // update stars
+    l.b.map(function(x,y,m,s){x.y < 0 ? l.b.splice(y,1) : x.y -= x.h})        // update bullets
     
-    for (o in l) l[o].map(function(o){o.r()})                              // render the object collection
+    for (o in l) l[o].map(function(x,y,m,s){x.r()})                              // render the object collection
     P(D)                                                                   // get the next animation frame and draw again
-}
+},
 
 // OBJECTS
 
@@ -76,79 +66,71 @@ function D() {
  * Generates and renders all shapes that are drawn for this game using the bit templates
  * @constructor
  */
-function Z(x,y,m,s) {
+Z =function(x,y,m,s) {
     var o = this                                     // shape local reference
     o.x = x                                          // shape position x
     o.y = y                                          // shape position y
     o.w = 16^(parseInt(m.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
     o.h = C(m)/o.w * s                               // shape height
     o.i = m                                          // shape matrix
-    o.s = s                                          // shape scaling multiplier
+    o.e = s                                          // shape scaling multiplier
 
-    this.r = function() {
-        o.i.map(function(v,i){
-            c.fillStyle = v > 0 ? '#FFF' : '#000'    // we only do two colours :D
-            c.fillRect((i%o.w*o.s)+o.x, (Math.floor(i/o.w)*o.s)+o.y, o.s, o.s)
-        })
+    this.r = function(x,y,m,s) {
+        with(o) {
+            i.map(function(v,i){
+                Q((i%w*e)+x, (~~(i/w)*e)+y, e, v)
+            })
+        }
     }
 
     this.m = function(d) {
-        (o.x+d > 0 && o.x+d+o.w < w) && (o.x += (d*o.s)) // shape movement function (scaled)
+        (o.x+d > 0 && o.x+d+o.w < w) && (o.x += (d*o.e)) // shape movement function (scaled)
     }
-}
+},
 
 // UTILITIES
-
+Q = function(x,y,m,s) {
+    p.fillStyle = n[s]
+    p.fillRect(x,y,m,m)
+},
 /**
  * javascript object length alias
  */
-function C(o) { return o.length }
+C = function(x,y,m,s) { return x.length },
 
 /**
  * converts int to bit map and then to bit array
  */
-function X(o) {
+X = function (x,y,m,s) {
     var r = []
-    o.map(function(i){r=r.concat(i.toString(2).split(''))})
+    x.map(function(i){r=r.concat(i.toString(2).split(''))})
     return r
-}
+},
 
 /**
  * Random number generator returns random number between x and 1 (inclusive)
  */
-function R(x) { return (Math.random()*x)+1 }
-
-function A(m) {
-    d.addEventListener(m, function(e) {
-        var c = e.keyCode
-        a[c] = !(m == 'keyup')
-        for(i = C(b); i--;) {
-            if((c == b[i].k) && (!a[c])) b[i].f()
-        }
-    }, 0)
-};
+R = function(x,y,m,s) { return (Math.random()*x)+1 };
 
 /**
  * Initialising bootstrap, is only called once as soon as it is loaded
  */
-(function() {
-    P  = window['webkitRequestAnimationFrame'] // setup the pacemake
-    v.width = v.height = w = h = 186 // size of the vanvas
-
-    A('keydown')
-    A('keyup')
+(function(x,y,m,s) {
+    P  = window['requestAnimationFrame'] // setup the pacemake
+    v.width = v.height = w = 186 // size of the canvas
 
     for(i=2; i--;) {
         // we dont know the width or height of the shape unless it has been loaded as
         // this information is embded within the bit map, so we have to make two passes
-        i > 0 ? l.s.push(new Z(w/2, h, X(m.s), 1)) : l.s[0].y = h-8               // first load ship then position it in the 2nd pass
+        i ? l.s.push(new Z(w/2, w, X(t.s), 1)) : l.s[0].y = w-8               // first load ship then position it in the 2nd pass
         for (j=9;j--;) {
-            i > 0 ? l.e.push(new Z(0, 6, X(m.e), 1)) : l.e[j].x = j*20+8          // load enemy grid and then position it in the 2nd pass
-            l.t.push(new Z(R(w), R(h), X(m.t), (105/(40+R(2E2)))))                // add 10 stars which will be recycled througout
+            i ? l.e.push(new Z(0, 6, X(t.e), 1)) : l.e[j].x = j*20+8          // load enemy grid and then position it in the 2nd pass
+            l.t.push(new Z(R(w), R(w), X(t.t), (105/(40+R(2E2)))))            // add i*j stars which will be recycled througout
         }
     }
-    b.push({k:32,f:function(){ var s=l.s[0]; l.b.push(new Z(s.x+s.w/2, s.y, X(m.b), 1)) }}) // key listener for the fire button
-
+    window.onkeyup = window.onkeydown = function(x,y,m,s) {
+        a[x.keyCode] = !(x.type == 'keyup')
+        a[32] && (s=l.s[0], l.b.push(new Z(s.x, s.y, X(t.b), 1)))
+    };
     D() //kick off the recursive drawing loop
 })();
-
