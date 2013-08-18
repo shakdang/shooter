@@ -16,37 +16,35 @@
 // star
 // 100011                           = 35
 
-var l = {                             // object collection
-        t:[],                         // stars
-        z:[],                         // enemies
-        s:[],                         // ship/s
-        b:[]                          // bullets
-    },
     // from LSB -> MSB: 1 bit marker followed by 4 bits of shape width followed by shape matrix
-    t = {
+var j = {
         z: [3842164813,4277649407,134209528,2114562], // enemy shape and size bit template
         s: [3893370877,33554431],                     // ship shape and size
-        t: [35]                                       // star shape and size
-    },
-    k = {},                                           // keytracker
-    n = ['#000','#FFF'],                             // colours
+        j: [35]},                                     // star shape and size
+    k = {},                           // keytracker
+    l = {                             // object collection
+        j:[],                         // stars
+        z:[],                         // enemies
+        s:[],                         // ship/s
+        b:[]},                        // bullets                                       
+    m = ['#000','#FFF'],              // colours
 
-D = function(a,b,c,d,e) {
-    Q(0,0,h,0) // clear canvas
+D = function(d,e,f,g,h) {
+    Q(0,0,n,0) // clear canvas
 
     l.s[0].m(k[37]?-2:k[39]?2:0) // if left key pressed then go left else if right key pressed go right else don't do anything
 
     //collision detection + bullet position rollup
-    l.b.map(function(a,b,c,d,e){
-        a.y < 0 ? l.b.splice(b,1) : a.y -= 4 // update bullet positions
+    l.b.map(function(d,e,f,g,h){
+        d.y < 0 ? l.b.splice(e,1) : d.y -= 4 // update bullet positions
         l.z.map(function(z,j){
-            a.x < (z.x + z.w*z.f) && a.x > z.x && a.y < (z.y + z.h) && l.z.splice(j,1) && l.b.splice(b,1)
+            d.x < (z.x + z.w*z.j) && d.x > z.x && d.y < (z.y + z.h) && l.z.splice(j,1) && l.b.splice(e,1)
         })
     })
 
-   l.t.map(function(a,b,c,d,e){(a.y += a.h), a.y > h && (a.y -= h, a.x = R(h))}) // update stars
+   l.j.map(function(d,e,f,g,h){(d.y += d.h), d.y > n && (d.y -= n, d.x = R(n))}) // update stars
     
-    for (o in l) l[o].map(function(a,b,c,d,e){a.r()})                            // render the object collection
+    for (o in l) l[o].map(function(d,e,f,g,h){d.r()})                            // render the object collection
     this.requestAnimationFrame(D)                                                // get the next animation frame and draw again
 },
 
@@ -56,56 +54,56 @@ D = function(a,b,c,d,e) {
  * Generates and renders all shapes that are drawn for this game using the bit templates
  * @constructor
  */
-Z =function(a,b,c,d,e) {
+Z =function(d,e,f,g,h) {
     var o = this                                     // shape local reference
-    o.x = a                                          // shape position x
-    o.y = b                                          // shape position y
-    o.w = 16^(parseInt(c.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
-    o.h = c.length/o.w * d                           // shape height
-    o.i = c                                          // shape matrix
-    o.f = d                                          // shape scaling multiplier
+    o.x = d                                          // shape position x
+    o.y = e                                          // shape position y
+    o.w = 16^(parseInt(f.splice(0,5).join(''),2))    // shape width - first 5 bits from the map minus the least significant marker bit
+    o.h = f.length/o.w * g                           // shape height
+    o.i = f                                          // shape matrix
+    o.j = g                                          // shape scaling multiplier
 
-    this.r = function(a,b,c,d,e) {
-        with(o) i.map(function(a,b,c,d,e){Q((b%w*f)+x, (~~(b/w)*f)+y, f, a)})
+    this.r = function(d,e,f,g,h) {
+        with(o) i.map(function(d,e,f,g,h){Q((e%w*j)+x, (~~(e/w)*j)+y, j, d)})
     }
 
-    this.m = function(a,b,c,d,e) {
-        b = o.x+a
-        b > 0 && b+o.w < h && (o.x = b*o.f) // shape movement function (scaled)
+    this.m = function(d,e,f,g,h) {
+        e = o.x+d
+        e > 0 && e+o.w < n && (o.x = e*o.j) // shape movement function (scaled)
     }
 },
 
 // UTILITIES
-Q = function(a,b,c,d,e) {
-    p.fillStyle = n[d]
-    p.fillRect(a,b,c,c)
+Q = function(d,e,f,g,h) {
+    p.fillStyle = m[g]
+    p.fillRect(d,e,f,f)
 },
 
-X = function(a,b,c,d,e) {
+X = function(d,e,f,g,h) {
     var r = []
-    a.map(function(a,b,c,d,e){r=r.concat(a.toString(2).split(''))})
+    d.map(function(d,e,f,g,h){r=r.concat(d.toString(2).split(''))})
     return r
 },
 
-R = function(a,b,c,d,e) { return (Math.random()*a)+1 },
+R = function(d,e,f,g,h) { return (Math.random()*d)+1 },
 
-J = function(a,b,c,d,e) { l[e].push(new Z(a,b,c,d)) };
+J = function(d,e,f,g,h) { l[h].push(new Z(d,e,f,g)) };
 
-(function(a,b,c,d,e) {
-    v = a.getElementById('g') // canvas
+(function(d,e,f,g,h) {
+    v = d.getElementById('g') // canvas
     p = v.getContext('2d')          // context 2d
-    v.width = v.height = h = 186 // size of the canvas
+    v.width = v.height = n = 186 // size of the canvas
 
-    t.s.map(function(a,b,c,d,e) {
-        b && J(h/2,h-8,X(t.s),1,'s')                         // first load ship then position it in the 2nd pass
-        for (j=9;j--;) {
-            b && J(j*20+8,6,X(t.z),1,'z')                    // load enemy grid and then position it in the 2nd pass
-            J(R(h), R(h), X(t.t), (105/(40+R(2E2))), 't')    // add i*j stars which will be recycled througout
+    j.s.map(function(d,e,f,g,h) {
+        e && J(n/2,n-8,X(j.s),1,'s')                         // first load ship then position it in the 2nd pass
+        for (i=9;i--;) {
+            e && J(i*20+8,6,X(j.z),1,'z')                    // load enemy grid and then position it in the 2nd pass
+            J(R(n), R(n), X(j.j), (105/(40+R(2E2))), 'j')    // add i*j stars which will be recycled througout
         }
     })
-    onkeyup = onkeydown = function(a,b,c,d,e) {
-        k[a.keyCode] = !(a.type == 'keyup')
-        k[32] && (d=l.s[0], J(d.x+5, d.y, X(t.t), 2, 'b'))
+    onkeyup = onkeydown = function(d,e,f,g,h) {
+        k[d.keyCode] = !(d.type == 'keyup')
+        k[32] && (g=l.s[0], J(g.x+5, g.y, X(j.j), 2, 'b'))
     };
     D() //kick off the recursive drawing loop
 })(document);
