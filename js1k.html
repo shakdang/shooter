@@ -1,3 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JS1k, 1k demo submission [ID]</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+		</script>
+		<script>
+// start of submission //
 // --------------------------------------------------
 
 // invader
@@ -86,7 +102,7 @@ Z =function(d,e,f,g,h,i) {
 
     this.k = function(d,e,f,g,h,i) {
         // use the Q function to render the object by drawing out the bit map one rect at a time
-        with(o) z.map(function(d,e,f,g,h,i){d && Q((e%w*j)+x, (e/w|0*j)+y, j, d)})
+        with(o) z.map(function(d,e,f,g,h,i){d && Q((e%w*j)+x, (~~(e/w)*j)+y, j, d)})
     }
 
     this.m = function(d,e,f,g,h,i) {
@@ -114,9 +130,6 @@ R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
 J = function(d,e,f,g,h,i) { l[h].push(new Z(d,e,f,g,i)) };
 
 (function(d,e,f,g,h,i) {
-
-    c = d.getElementById('g') // canvas
-    a = c.getContext('2d')          // context 2d
     c.width = c.height = n = 186 // size of the canvas
     // j.k.map(function(d,e,f,g,h,i) {
     //     i=11
@@ -131,7 +144,7 @@ J = function(d,e,f,g,h,i) { l[h].push(new Z(d,e,f,g,i)) };
         i=11
         !e && J(n/2,n-8,X(j.l),1,'l',i)                        // load the ship in the first pass
         for (z=8;z--;) {
-            J(z*22+i,i*e+6,X(j.k[e/2|0]),1,'k',i)                // load enemy rows grid
+            J(z*22+i,i*e+6,X(j.k[~~(e/2)]),1,'k',i)                // load enemy rows grid
             z > 3 && J(R(n), R(n), X(j.j), (105/(40+R(2E2))), 'j',1)    // load stars for all passes which will be recycled througout
         }
     }
@@ -141,4 +154,8 @@ J = function(d,e,f,g,h,i) { l[h].push(new Z(d,e,f,g,i)) };
         k[32] && (g=l.l[0], J(g.x+5, g.y, X(j.j), 2, 'm',1)) // create new bullet on space bar press
     };
     setInterval(D, 16)
-})(document);
+})();
+// end of submission //
+		</script>
+	</body>
+</html>
