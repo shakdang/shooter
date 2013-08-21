@@ -1,55 +1,38 @@
 // --------------------------------------------------
 
 // invader
-// 11100101000000101100100001001101 = 3842164813
-// 11111110111101111011111111111111 = 4277649407
-// 111111111111101111111111000      = 134209528
-// 1000000100010000000010           = 2114562
-
-//invader 2
-// 110110010000010000010001000001111  //7281844751
-// 111000110111011011111111111101111  //7632453615
-// 111011010000010100011011000        //124266712
-
-// inavader 2 without the length bits
-// 1001000001000001000100000111111    //1210091583
-// 10001101110110111111111111011111   //2380005343
-// 11011010000010100011011000         //57157848
-
-// invader 3 without the length bits
-// 100001100000000111100000011111     //562067487
-// 10000110110110001111111100000      //282796000
-// 100100000010110100001010010100     //604717716
-
+// 0 0111100
+// 0 0111010
+// 0 1111110
+// 0 0001111
+// 0 0111100
+// 0 1001100
+//
+// star bullet (1px top left)
+// 00000001
+//
 // ship
-// 11101000000100000001111111111101   //3893370877
-// 1111111111111111111111111          //33554431
-
-// ship without the length bits
-
-// 10000010000000001110000011111111   //2181095679
-// 101111111111111111111111           //12582911
-
-// star
-// 100011                           = 35
-
-var j = {
-        k: [[562067487,282796000,604717716],[1210091583,2380005343,57157848]],   // enemy shape and size bit template
-        l: [2181095679,12582911],              // ship shape and size
-        j: [3]},                               // star shape and size
+// 01111000
+// 01111110
+// 00110000
+// 01110110
+// 01111111
+//
+// e1 at offset 0 width 9 e1 at offset 1 width 11, start at offset 7 width 1 ship at offset 8 width 9
+var j = '^L<~:<v0~x',
     k = {},                                    // keytracker
     l = {                                      // object collection
         j:[],                                  // stars
         k:[],                                  // enemies
         l:[],                                  // ship/s
-        m:[]},                                 // bullets                                       
-    m = ['#000','#FFF'],                       // colours
+        m:[]},                                 // bullets
+    m = ['#FFF','#000'],                       // colours
 
 D = function(d,e,f,g,h,i) {
     Q(0,0,n,0) // clear canvas by drawing a black rectangle of the same size
 
     // if left key pressed then go left else if right key pressed go right else don't do anything
-    l.l[0].m(k[37]?-2:k[39]?2:0) 
+    l.l[0].m(k[37]?-2:k[39]?2:0)
 
     //collision detection + bullet position rollup
     l.m.map(function(d,e,f,g,h,i){ // for each bullet
@@ -63,7 +46,7 @@ D = function(d,e,f,g,h,i) {
 
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
     l.j.map(function(d,e,f,g,h,i){(d.y += d.h), d.y > n && (d.y = 0, d.x = R(n))})
-    
+
     for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()}) // render all the objects to canvas
     //webkitRequestAnimationFrame(D) // pass the self into the animation frame request as callback to update game state again
 },
@@ -72,27 +55,37 @@ D = function(d,e,f,g,h,i) {
 
 /**
  * Generates and renders all shapes that are drawn for this game using the bit templates
+ * d = pos x
+ * e = pos y
+ * f = map offset
+ * g = scale
+ * h = width/height
+ * i = -
  * @constructor
  */
 Z =function(d,e,f,g,h,i) {
-    var o = this                                     // shape local reference
-    f.splice(0,1)
-    o.x = d                                          // shape position x
-    o.y = e                                          // shape position y
-    o.w = h                                          // shape width - first 5 bits from the map minus the least significant marker bit
-    o.h = f.length/o.w * g                           // shape height
-    o.z = f                                          // shape matrix
-    o.j = g                                          // shape scaling multiplier
+    var o = this // shape local reference
+    o.x = d      // shape position x
+    o.y = e      // shape position y
+    o.w = h      // shape width
+    o.h = 7      // always 7 pixels (bits) to keep the encoding chars under 1 byte
+    o.z = f      // shape map string offset
+    o.v = g      // shape scaling multiplier
 
     this.k = function(d,e,f,g,h,i) {
-        // use the Q function to render the object by drawing out the bit map one rect at a time
-        with(o) z.map(function(d,e,f,g,h,i){d && Q((e%w*j)+x, (e/w|0*j)+y, j, d)})
+        h = ~~(o.w/2)
+        v = o.v
+        for (i=o.w;i--;) {
+            f=i<h?h-i:i-h
+            for(g=8;g--;)
+                (j.charCodeAt(o.z+f)&1<<g) && Q(o.x+i*v,o.y+g*v,v,1)
+        }
     }
 
     this.m = function(d,e,f,g,h,i) {
         e = o.x+d // position update
         // make sure the ship stays within the canvas bounding box
-        e > 0 && e+o.w < n && (o.x = e*o.j) // shape movement function (scaled)
+        e > 0 && e+o.w < n && (o.x = e*o.v) // shape movement function (scaled)
     }
 },
 
@@ -103,42 +96,37 @@ Q = function(d,e,f,g,h,i) {
     a.fillRect(d,e,f,f)
 },
 
-X = function(d,e,f,g,h,i) {
-    var k = []
-    d.map(function(d,e,f,g,h,i){k=k.concat(d.toString(2).split(''))})
-    return k
-},
-
 R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
 
-J = function(d,e,f,g,h,i) { l[h].push(new Z(d,e,f,g,i)) };
+/**
+ * d = pos x
+ * e = pos y
+ * f = map offset
+ * g = scale
+ * h = height/width
+ * i = pointer
+ */
+J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
 
 (function(d,e,f,g,h,i) {
 
     c = d.getElementById('g') // canvas
     a = c.getContext('2d')          // context 2d
     c.width = c.height = n = 186 // size of the canvas
-    // j.k.map(function(d,e,f,g,h,i) {
-    //     i=11
-    //     e && J(n/2,n-8,X(j.l),1,'l',i)                         // load the ship in the first pass
-    //     for (z=9;z--;) {
-    //         J(z*20+8,i*e+6,X(d),1,'k',i)                       // load enemy rows grid
-    //         J(R(n), R(n), X(j.j), (105/(40+R(2E2))), 'j',1)    // load stars for all passes which will be recycled througout
-    //     }
-    // })
-
     for (e=4;e--;) {
         i=11
-        !e && J(n/2,n-8,X(j.l),1,'l',i)                        // load the ship in the first pass
+        !e && J(n/2,n-8,8,1,9,'l')                     // load the ship in the last pass
         for (z=8;z--;) {
-            J(z*22+i,i*e+6,X(j.k[e/2|0]),1,'k',i)                // load enemy rows grid
-            z > 3 && J(R(n), R(n), X(j.j), (105/(40+R(2E2))), 'j',1)    // load stars for all passes which will be recycled througout
+            h = e/2|0
+            J(z*22+i,i*e+6,h,1,i-2*h,'k')                // load enemy rows grid
+            z > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
         }
     }
 
     onkeyup = onkeydown = function(d,e,f,g,h,i) {
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
-        k[32] && (g=l.l[0], J(g.x+5, g.y, X(j.j), 2, 'm',1)) // create new bullet on space bar press
+        k[32] && (g=l.l[0]) && J(g.x+5, g.y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    setInterval(D, 16)
+    D()
+    //setInterval(D, 16)
 })(document);

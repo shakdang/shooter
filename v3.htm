@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <canvas id="c"></canvas>
+        <script>
+            var b = document.body;
+            var c = document.getElementsByTagName('canvas')[0];
+            var a = c.getContext('2d');
+            document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+        </script>
+        <script>
+// start of submission //
+//in  your pattern
+// 00010001000
+// 01110001110
+// 10111111101
+// 11111111111
+// 11101010111
+// 11101010111
+// 00100100100
+//
+// changes to for first ~~(w/2)+1 rows
+// 0 0111100
+// 0 0111010
+// 0 1111110
+// 0 0001111
+// 0 0111100
+// 0 1001100
+//
+// 00000001
+//
+// 01111000
+// 01111110
+// 00110000
+// 01110110
+// 01111111
+//
+c.width = c.height = 100
+m1s = '';
+m1 = ['00111100','00111010','01111110','00001111','00111100','01001100']
+m1 = ['01111000','01111110','00110000','01110110','01111111']
+for (i=m1.length;i--;) {
+    m1s += String.fromCharCode(parseInt(m1[i], 2));
+}
+console.log(m1s)
+m1t = "^L<~:<v0~x"
+a.fillStyle="#000"
+draw = function(x,y,p,w,s)
+{
+    h = ~~(w/2)
+    for (i=w;i--;){
+            k=i<h?h-i:i-h
+        for(j=8;j--;){
+            if ((m1t.charCodeAt(p+k) & 1 << j))
+            {
+                a.fillRect(x+i*s,y+j*s,s,s)
+            }
+        }
+    }
+}
+
+draw(0,0,0,9,1) // e1
+draw(0,10,1,11,1) //e2
+draw(0,20,7,1,1) //b
+draw(0,30,8,9,1) //s
+// end of submission //
+        </script>
+    </body>
+</html>
