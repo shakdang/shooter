@@ -18,7 +18,7 @@
 // 01110110
 // 01111111
 //
-// e1 at offset 0 width 9 e1 at offset 1 width 11, start at offset 7 width 1 ship at offset 8 width 9
+// e1 at offset 0 width 9 e1 at offset 1 width 11, pixel at offset 7 width 1 ship at offset 8 width 9
 var j = '^L<~:<v0~x',
     k = {},                                    // keytracker
     l = {                                      // object collection
@@ -40,7 +40,7 @@ D = function(d,e,f,g,h,i) {
         d.y < 0 ? l.m.splice(e,1) : d.y -= 4
         l.k.map(function(k,j){ // for each enemy
             //if bullet and enemy overlap, remove both
-            d.x < (k.x + k.w*k.j) && d.x > k.x && d.y < (k.y + k.h) && l.k.splice(j,1) && l.m.splice(e,1)
+            d.x < (k.x + k.w*k.v) && d.x > k.x && d.y < (k.y + k.h) && l.k.splice(j,1) && l.m.splice(e,1)
         })
     })
 
@@ -110,15 +110,15 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
 
 (function(d,e,f,g,h,i) {
 
-    c = d.getElementById('g') // canvas
-    a = c.getContext('2d')          // context 2d
-    c.width = c.height = n = 186 // size of the canvas
+    c = d.getElementById('g')              // canvas
+    a = c.getContext('2d')                 // context 2d
+    c.width = c.height = n = 186           // size of the canvas
     for (e=4;e--;) {
         i=11
-        !e && J(n/2,n-8,8,1,9,'l')                     // load the ship in the last pass
+        !e && J(n/2,n-8,8,1,9,'l')         // load the ship in the last pass
         for (z=8;z--;) {
             h = e/2|0
-            J(z*22+i,i*e+6,h,1,i-2*h,'k')                // load enemy rows grid
+            J(z*22+i,i*e+6,h,1,i-2*h,'k')  // load enemy rows grid
             z > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
         }
     }
@@ -127,6 +127,6 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && (g=l.l[0]) && J(g.x+5, g.y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    D()
-    //setInterval(D, 16)
+    //D()
+    setInterval(D, 16)
 })(document);
