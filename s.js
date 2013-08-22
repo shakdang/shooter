@@ -26,7 +26,7 @@ var j = '^L<~:<v0~x',
         k:[],                                  // enemies
         l:[],                                  // ship/s
         m:[]},                                 // bullets
-    m = ['#FFF','#000'],                       // colours
+    m = ['#FFF','#CCC'],                       // colours
 
 D = function(d,e,f,g,h,i) {
     Q(0,0,n,0) // clear canvas by drawing a black rectangle of the same size
@@ -40,7 +40,7 @@ D = function(d,e,f,g,h,i) {
         d.y < 0 ? l.m.splice(e,1) : d.y -= 4
         l.k.map(function(k,j){ // for each enemy
             //if bullet and enemy overlap, remove both
-            d.x < (k.x + k.w*k.v) && d.x > k.x && d.y < (k.y + k.h) && l.k.splice(j,1) && l.m.splice(e,1)
+            d.x < (k.x + k.w*k.v) && d.x > k.x && d.y < (k.y + 7) && l.k.splice(j,1) && l.m.splice(e,1)
         })
     })
 
@@ -68,18 +68,15 @@ Z =function(d,e,f,g,h,i) {
     o.x = d      // shape position x
     o.y = e      // shape position y
     o.w = h      // shape width
-    o.h = 7      // always 7 pixels (bits) to keep the encoding chars under 1 byte
+    o.h = h*g    //
     o.z = f      // shape map string offset
     o.v = g      // shape scaling multiplier
 
     this.k = function(d,e,f,g,h,i) {
-        h = ~~(o.w/2)
-        v = o.v
-        for (i=o.w;i--;) {
-            f=i<h?h-i:i-h
+        e = o.w
+        for (i=e;i--;)
             for(g=8;g--;)
-                (j.charCodeAt(o.z+f)&1<<g) && Q(o.x+i*v,o.y+g*v,v,1)
-        }
+                (j.charCodeAt(o.z+Math.abs(~~(e/2)-i))&1<<g) && Q(o.x+i*o.v,o.y+g*o.v,o.v,1)
     }
 
     this.m = function(d,e,f,g,h,i) {
@@ -103,23 +100,21 @@ R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
  * e = pos y
  * f = map offset
  * g = scale
- * h = height/width
+ * h = height
  * i = pointer
  */
 J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
 
 (function(d,e,f,g,h,i) {
-
     c = d.getElementById('g')              // canvas
     a = c.getContext('2d')                 // context 2d
     c.width = c.height = n = 186           // size of the canvas
     for (e=4;e--;) {
         i=11
-        !e && J(n/2,n-8,8,1,9,'l')         // load the ship in the last pass
-        for (z=8;z--;) {
-            h = e/2|0
-            J(z*22+i,i*e+6,h,1,i-2*h,'k')  // load enemy rows grid
-            z > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
+        !e && J(n/2,170,8,1,9,'l')         // load the ship in the last pass
+        for (g=8;g--;) {
+            J(g*22+i,i*e+6,~~(e/2),1,11,'k')  // load enemy rows grid
+            g > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
         }
     }
 
