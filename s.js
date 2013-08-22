@@ -108,19 +108,17 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
 (function(d,e,f,g,h,i) {
     c = d.getElementById('g')              // canvas
     a = c.getContext('2d')                 // context 2d
-    c.width = c.height = n = 186           // size of the canvas
-    for (e=4;e--;) {
-        i=11
-        !e && J(n/2,170,8,1,9,'l')         // load the ship in the last pass
+    c.width = c.height = n = 186, e= 4           // size of the canvas
+    for (i=e;i--;)
         for (g=8;g--;) {
-            J(g*22+i,i*e+6,~~(e/2),1,11,'k')  // load enemy rows grid
+            !i && !g && J(n/2,170,8,1,9,'l')         // load the ship in the last pass
+            J(g*22+11,11*i+6,~~(i/2),1,11,'k')  // load enemy rows grid
             g > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
         }
-    }
 
     onkeyup = onkeydown = function(d,e,f,g,h,i) {
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
-        k[32] && (g=l.l[0]) && J(g.x+5, g.y, 7, 2, 1,'m') // create new bullet on space bar press
+        k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
     //D()
     setInterval(D, 16)
