@@ -56,10 +56,10 @@ Z = function(d,e,f,g,h,i) {
     o.h = h*g    // scaled height to help with collision detection
 
     this.k = function(d,e,f,g,h,i) {
-        e = o.w
-        for (i=e;i--;)
+        i=o.w
+        while(i--)
             for(g=8;g--;)
-                (j.charCodeAt(o.z+Math.abs(~~(e/2)-i))&1<<g) && a.fillRect(o.x+i*o.v,o.y+g*o.v,o.v,o.v)
+                (j.charCodeAt(o.z+Math.abs(~~(o.w/2)-i))&1<<g) && a.fillRect(o.x+i*o.v,o.y+g*o.v,o.v,o.v)
     }
 
     this.m = function(d,e,f,g,h,i) {
@@ -94,6 +94,5 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    console.log(l)
     setInterval(D, 16) // 60 fps hardcoded heartbeat
 })(document);
