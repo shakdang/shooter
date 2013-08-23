@@ -82,8 +82,8 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
 (function(d,e,f,g,h,i) {
     c = d.getElementById('g')             // canvas
     a = c.getContext('2d')                // context 2d
-    c.width = c.height = n = 186, e = 4   // size of the canvas
-    for (i=e;i--;)
+    c.width = c.height = n = 186, i = 4   // size of the canvas
+    while(i--)
         for (g=8;g--;) {
             !i && !g && J(n/2,170,8,1,9,'l')                    // load the ship in the last pass
             J(g*22+11,11*i+6,~~(i/2),1,11,'k')                   // load enemy rows grid
@@ -94,5 +94,6 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
+    console.log(l)
     setInterval(D, 16) // 60 fps hardcoded heartbeat
 })(document);
