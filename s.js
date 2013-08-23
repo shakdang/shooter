@@ -24,78 +24,79 @@ var j = '^L<~:<v0~x',
     l = {                                      // object collection
         j:[],                                  // stars
         k:[],                                  // enemies
-        l:[],                                  // ship/s
+        l:[],                                  // ship
         m:[]},                                 // bullets
-    m = ['#FFF','#CCC'],                       // colours
 
+/*
+ * Main draw function
+ * d,e,f,g,h,i = uused
+ */
 D = function(d,e,f,g,h,i) {
-    Q(0,0,n,0) // clear canvas by drawing a black rectangle of the same size
+    a.fillStyle = '#FFF'
+    a.fillRect(0,0,n,n)
+    a.fillStyle = '#CCC'
 
     // if left key pressed then go left else if right key pressed go right else don't do anything
     l.l[0].m(k[37]?-2:k[39]?2:0)
 
     //collision detection + bullet position rollup
     l.m.map(function(d,e,f,g,h,i){ // for each bullet
+        m=d,o=e
         // update bullet positions and remove bullet if out of view
         d.y < 0 ? l.m.splice(e,1) : d.y -= 4
-        l.k.map(function(k,j){ // for each enemy
+        l.k.map(function(d,e,f,g,h,i){ // for each enemy
             //if bullet and enemy overlap, remove both
-            d.x < (k.x + k.w*k.v) && d.x > k.x && d.y < (k.y + 7) && l.k.splice(j,1) && l.m.splice(e,1)
+            m.x < (d.x + d.w*d.v) && m.x > d.x && m.y < (d.y + 7) && l.k.splice(e,1) && l.m.splice(o,1)
         })
     })
 
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
     l.j.map(function(d,e,f,g,h,i){(d.y += d.h), d.y > n && (d.y = 0, d.x = R(n))})
 
-    for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()}) // render all the objects to canvas
-    //webkitRequestAnimationFrame(D) // pass the self into the animation frame request as callback to update game state again
+     // render all the objects to canvas
+    for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
 },
 
-// OBJECTS
-
-/**
- * Generates and renders all shapes that are drawn for this game using the bit templates
+/*
+ * Generic drawable object
  * d = pos x
  * e = pos y
  * f = map offset
  * g = scale
  * h = width/height
- * i = -
- * @constructor
+ * i = unused but kept for crushing
  */
 Z =function(d,e,f,g,h,i) {
     var o = this // shape local reference
     o.x = d      // shape position x
     o.y = e      // shape position y
-    o.w = h      // shape width
-    o.h = h*g    //
     o.z = f      // shape map string offset
     o.v = g      // shape scaling multiplier
+    o.w = h      // shape width
+    o.h = h*g    // scaled height to help with collision detection
 
     this.k = function(d,e,f,g,h,i) {
         e = o.w
         for (i=e;i--;)
             for(g=8;g--;)
-                (j.charCodeAt(o.z+Math.abs(~~(e/2)-i))&1<<g) && Q(o.x+i*o.v,o.y+g*o.v,o.v,1)
+                (j.charCodeAt(o.z+Math.abs(~~(e/2)-i))&1<<g) && a.fillRect(o.x+i*o.v,o.y+g*o.v,o.v,o.v)
     }
 
     this.m = function(d,e,f,g,h,i) {
-        e = o.x+d // position update
-        // make sure the ship stays within the canvas bounding box
+        e = o.x+d
         e > 0 && e+o.w < n && (o.x = e*o.v) // shape movement function (scaled)
     }
 },
 
-// UTILITIES
-Q = function(d,e,f,g,h,i) {
-    // canvas is drawn on twice so we'll alias the procedure into a function
-    a.fillStyle = m[g]
-    a.fillRect(d,e,f,f)
-},
-
+/*
+ * Random number generator between 1 => limit
+ * d = limit
+ * e,f,g,h,i = unused
+ */
 R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
 
-/**
+/*
+ * Alias for constructing the drawable objects
  * d = pos x
  * e = pos y
  * f = map offset
@@ -103,23 +104,22 @@ R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
  * h = height
  * i = pointer
  */
-J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h)) };
+J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
 
 (function(d,e,f,g,h,i) {
-    c = d.getElementById('g')              // canvas
-    a = c.getContext('2d')                 // context 2d
-    c.width = c.height = n = 186, e= 4           // size of the canvas
+    c = d.getElementById('g')             // canvas
+    a = c.getContext('2d')                // context 2d
+    c.width = c.height = n = 186, e = 4   // size of the canvas
     for (i=e;i--;)
         for (g=8;g--;) {
-            !i && !g && J(n/2,170,8,1,9,'l')         // load the ship in the last pass
-            J(g*22+11,11*i+6,~~(i/2),1,11,'k')  // load enemy rows grid
-            g > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')    // load stars for all passes which will be recycled througout
+            !i && !g && J(n/2,170,8,1,9,'l')                    // load the ship in the last pass
+            J(g*22+11,11*i+6,~~(i/2),1,11,'k')                   // load enemy rows grid
+            g > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')   // load stars for all passes which will be recycled througout
         }
 
     onkeyup = onkeydown = function(d,e,f,g,h,i) {
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    //D()
-    setInterval(D, 16)
+    setInterval(D, 16) // 60 fps hardcoded heartbeat
 })(document);

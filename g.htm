@@ -1,6 +1,926 @@
-<html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="title" content="Infinity Tracking Portal" />
+<meta name="description" content="Reporting and Configuration Portal for Infinity Tracking" />
+<meta name="keywords" content="infinity, tracking, portal, control, panel, configuration" />
+<meta name="language" content="en" />
+<meta name="robots" content="noindex, nofollow" />
+        <title>Infinity Tracking Portal</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+                        <link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/fixedHeaderTable.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/reset.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/styles.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/tipsy.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/jquery.autocompleter.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/mp3player.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/feedback.css?v=1.4.426-1.4.18" />
+<link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/branding/css/min/brand_infinity.css?v=1.4.426-1.4.18" />
+        <script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/jquery-1.8.3.min.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/ppcAnalysis.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/channelsContextualMenu.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/jquery.fixedheadertable.min.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/attributionSelector.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/jquery.tipsy.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/tipsyRun.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/jquery-ui-1.9.1.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/jquery.autocompleter.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/highcharts-2.3.3.min.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/getnoticed.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/layout.js?v=1.4.426-1.4.18"></script>
+<script type="text/javascript" src="https://assets.infinity-tracking.net/ccp/js/min/notificationsAlert.js?v=1.4.426-1.4.18"></script>
+                <!-- Infinity Tracking Code v1.2
+     Copyright Infinity Tracking 2011
+     www.Infinity-Tracking.com -->
+<script type="text/javascript">
+    var _ictt = _ictt || [];
+    _ictt.push(['_setIgrp', '120']); // Installation ID
+    _ictt.push(['_track']);
+    (function() {
+        var ict = document.createElement('script'); ict.type = 'text/javascript'; ict.async = true;
+        ict.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'assets.infinity-tracking.net/nas/js/nas.v1.min.js';
+        var scr = document.getElementsByTagName('script')[0]; scr.parentNode.insertBefore(ict, scr);
+    })();
+</script>
+<!-- Infinity Tracking Code End -->            </head>
     <body>
-        <canvas id="g"></canvas>
+        <div id="wrapper">
+        <canvas style="float:left" id="g"></canvas>
         <script src="s.js"></script>
-    </body>
+            <div class="wrapper" id="notificationsWrapper">
+                <div id="notifications" style="clear:both">
+                                    </div>
+            </div>
+            <div id="header">
+                <div id="logo">
+                    <h1>    <a href="/"><img src="https://assets.infinity-tracking.net/ccp/branding/images/2f883544-d320-4418-bb6c-b8d93bc97854.png" alt="Go to Dashboard" title="Go to Dashboard" /></a></h1>
+                </div>
+                                <div id="user">
+                    <p><strong>Logged in as:</strong> Shahrukh Omar        <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        // show user chooser
+        $("#user p span a").click(function() {
+            $(this).parents("p").hide();
+            $("#userChooser").show();
+            $("#userChooser #autocomplete_username").focus();
+        })
+        $("#userChooser").keyup(function(event) {
+            // 13 = ENTER
+            if (event.keyCode == 13) {
+                $("#switchUserForm").submit();
+            }
+        })
+    })
+    </script>
+    [<span><a href="#">change</a></span> | <a href="/signout">Logout</a>]</p>
+    <form id="switchUserForm" action="/switch-user">
+        <div id="userChooser" style="display:none">
+        <tr>
+  <th><label for="username">Username</label></th>
+  <td><input class="text" type="hidden" name="username" id="username" /><input class="text" type="text" name="autocomplete_username" id="autocomplete_username" /><script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery("#autocomplete_username")
+    .autocomplete('/home/userlist', jQuery.extend({}, {
+      dataType: 'json',
+      parse:    function(data) {
+        var parsed = [];
+        for (key in data) {
+          parsed[parsed.length] = { data: [ data[key], key ], value: data[key], result: data[key] };
+        }
+        return parsed;
+      }
+    }, { }))
+    .result(function(event, data) { jQuery("#username").val(data[1]); });
+  });
+</script><input type="hidden" name="_csrf_token" value="1a4dde08c93e418b9a3d8a74401d419e" id="csrf_token" /></td>
+</tr>
+    </div>
+    </form>
+                </div>
+                <div id="igroup">
+                    <p class="igrpChooser"><span><strong>Viewing:</strong> Infinity Tracking [<button class="chooser pColor" data-route="dashboard" data-source="/igrp/chooser-options">change <i class="icon spinner" style="display:none"></i></button>]</span></p>
+
+                </div>
+                <p class="credit">Powered by <strong>Infinity Tracking</strong></p>
+                            </div>
+                        <div class="nav pBackground"><div class="navContent navPrimary"><ul><li class=""><a class="" href="/dashboard/igrp/1">Dashboard</a></li><li class=""><a class="" href="/report/visits/igrp/1">Visits</a></li><li class=""><a class="" href="/report/goals/igrp/1">Goals</a></li><li class=""><a class="" href="/report/channels/igrp/1">Channels</a></li><li class=""><a class="" href="/report/calls/igrp/1">Calls</a></li><li class=""><a class="" href="/report-list/igrp-1">Reports</a></li><li class=""><a class="selected" href="/report/igrp/1/ppc/analysis/account-summaries">PPC Analysis</a></li><li class=" last"><a class="" href="/report/ppc-account-lastChanged-0/igrp-1">PPC Management</a></li></ul><ul class="alignRight"><li><a class="" href="/user/notifications">Admin</a></li></ul></div></div><div class="nav"><div class="navSecondary navContent"><ul><li class="first">PPC Analysis</li><li><a class="subSelected" href="/report/igrp/1/ppc/analysis/account-summaries">PPC Account Summaries</a></li><li><a class="" href="/report-list/igrp-1/PPC_Reports">PPC Reports</a></li></ul></div></div>            <div
+                id="notificationAlertsTarget"
+                class="notificationAlertsTarget"
+                data-source="/user/notifications/alerts"
+                data-activemodule="reportPpcAnalysis"
+                data-activeaction="ppcAccountSummaries">
+                            </div>
+                        <div id="content">
+                <div class="layoutTwoColumn reportFilters">
+    <div class="column clearfix">
+        <div class="attributionSelector filters">
+            <p><strong>Attribution Model:</strong> First Click Weighted across PPC                    </p>
+    </div>    </div>
+    <div class="column last">
+        <link rel="stylesheet" type="text/css" media="screen" href="https://assets.infinity-tracking.net/ccp/css/min/jquery.ui-1.8.7-dark-hive.css?v=1.4.426" />
+<div id="range">
+    <p title="17th Aug to 23rd Aug"><span id="dateRangeText"><strong>Viewing:</strong> Last 7 Days [<a href="#" id="changeDateRange">change</a>]</span></p>
+    <div id="date_range" style="display:none">
+        <div id="nav" class="nav">
+            <ul id="presetRanges">
+                                                                            <li class="first">
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=23+Aug+2013&dateRangeEnd=23+Aug+2013&dateRangeType=relative&dateRangeName=today" id="today" alt="Today" title="Today">Today</a>
+                    </li>
+                                                                            <li>
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=22+Aug+2013&dateRangeEnd=22+Aug+2013&dateRangeType=relative&dateRangeName=yesterday" id="yesterday" alt="Yesterday" title="Yesterday">Yesterday</a>
+                    </li>
+                                                                            <li>
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=17+Aug+2013&dateRangeEnd=23+Aug+2013&dateRangeType=relative&dateRangeName=last7days" id="last7days" alt="Last 7 Days" title="Last 7 Days">Last 7 Days</a>
+                    </li>
+                                                                            <li>
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=27+Jul+2013&dateRangeEnd=23+Aug+2013&dateRangeType=relative&dateRangeName=last28days" id="last28days" alt="Last 28 Days" title="Last 28 Days">Last 28 Days</a>
+                    </li>
+                                                                            <li>
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=01+Aug+2013&dateRangeEnd=23+Aug+2013&dateRangeType=relative&dateRangeName=thismonth" id="thismonth" alt="This Month" title="This Month">This Month</a>
+                    </li>
+                                                                            <li class="last">
+                        <a href="#" data-uri="/updateDateRange?dateRangeStart=01+Jul+2013&dateRangeEnd=31+Jul+2013&dateRangeType=relative&dateRangeName=lastmonth" id="lastmonth" alt="Last Month" title="Last Month">Last Month</a>
+                    </li>
+                            </ul>
+        </div>
+        <div id="dateRangeCalendars">
+            <div style="clear:both"></div>
+            <div class="dateRangeCal" id="startDate">
+                <label>Start Date:</label><input type="text" disabled="disabled" id="dateRangeStart" name="dateRangeStart"></input>
+                <div id="dateRangeStartCal"></div>
+            </div>
+            <div class="dateRangeCal" id="endDate">
+                <label>End Date:</label><input type="text" disabled="disabled" id="dateRangeEnd" name="dateRangeEnd"></input>
+                <div id="dateRangeEndCal"></div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <input type="hidden" name="dateRangeType" value="custom" id="dateRangeType" />
+        <input type="hidden" name="dateRangeName" value="custom" id="dateRangeName" />
+        <input type="submit" name="apply" value="Apply" class="button" id="updateDateRange" />
+                    <div class="currentTime">Current time in "Europe/London" is "08:57:46"</div>
+                <div style="clear:both"></div>
+        <span class="date_range_error"></span>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        // prepare the calendars
+        $(function() {
+            $('#dateRangeStartCal').datepicker(
+            {
+                dateFormat: "dd M yy",
+                firstDay: 1,
+                numberOfMonths: 1,
+                altField: "#dateRangeStart",
+                altFormat: "dd M yy",
+                defaultDate: "17 Aug 2013"
+            });
+            $('#dateRangeEndCal').datepicker(
+            {
+                dateFormat: "dd M yy",
+                firstDay: 1,
+                numberOfMonths: 1,
+                altField: "#dateRangeEnd",
+                altFormat: "dd M yy",
+                defaultDate: "23 Aug 2013"
+            });
+        });
+
+        // if a relative date range is set, mark the date range nav item
+        var dateRangeName = 'last7days';
+        if (dateRangeName != 'custom') {
+            $("#presetRanges a#"+dateRangeName).addClass('selected');
+        };
+        $("#updateDateRange").click(function() {
+
+            $("#updateDateRange").hide();
+            var updateDateRangeUri  = '/updateDateRange';
+            var dateRangeStart      = $("#dateRangeStart").val();
+            var dateRangeEnd        = $("#dateRangeEnd").val();
+            var dateRangeType       = $("#dateRangeType").val();
+            var dateRangeName       = $("#dateRangeName").val();
+            var date                = new Date();
+            var seconds             = date.getTime();
+            $.ajax({
+                url: updateDateRangeUri + '?dateRangeStart=' + dateRangeStart + '&dateRangeEnd=' + dateRangeEnd + '&dateRangeType=' + dateRangeType + '&dateRangeName=' + dateRangeName + '&time=' + seconds,
+                success: function(data) {
+                    window.location.reload(false);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    window.location.reload(false);
+                }
+            });
+        });
+        $("#presetRanges a").click(function(event) {
+            $("#updateDateRange").hide();
+            var updateDateRangeUri = $(this).data('uri');
+            var date            = new Date();
+            var seconds         = date.getTime();
+            $.ajax({
+                url: updateDateRangeUri + '&time=' + seconds,
+                success: function(data) {
+                    window.location.reload(false);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    window.location.reload(false);
+                }
+            });
+            event.preventDefault();
+        });
+    });
+</script>        <div class="ppcSegmentationMenu filters">
+    <p data-action="attribution-selector" data-target="#ppcSegmentationPopup"><strong>PPC Segment:</strong> None [<a data-toggle="popup" class="change" href="#">change</a>]</p>
+    <div class="popup pBorder" data-align="right" style="display:none" id="ppcSegmentationPopup">
+        <div class="popupContent">
+            <ul class="contentList ppcSegmentationList">
+                                                    <li class="odd selected">
+                        <a href="/report/igrp/1/ppc/analysis/account-summaries?ppcSegment=">
+                            <div class="ppcSegmentationIcon spinnerIcon" style="display:none"><i class="icon spinner"></i></div>
+                            <div class="ppcSegementationWrapper">
+                                <h2>None</h2>
+                            </div>
+                        </a>
+                    </li>
+                                                        <li class="even ">
+                        <a href="/report/igrp/1/ppc/analysis/account-summaries?ppcSegment=adNetwork">
+                            <div class="ppcSegmentationIcon spinnerIcon" style="display:none"><i class="icon spinner"></i></div>
+                            <div class="ppcSegementationWrapper">
+                                <h2>Ad Network</h2>
+                            </div>
+                        </a>
+                    </li>
+                                                        <li class="odd ">
+                        <a href="/report/igrp/1/ppc/analysis/account-summaries?ppcSegment=clickType">
+                            <div class="ppcSegmentationIcon spinnerIcon" style="display:none"><i class="icon spinner"></i></div>
+                            <div class="ppcSegementationWrapper">
+                                <h2>Click Type</h2>
+                            </div>
+                        </a>
+                    </li>
+                                                        <li class="even ">
+                        <a href="/report/igrp/1/ppc/analysis/account-summaries?ppcSegment=device">
+                            <div class="ppcSegmentationIcon spinnerIcon" style="display:none"><i class="icon spinner"></i></div>
+                            <div class="ppcSegementationWrapper">
+                                <h2>Device</h2>
+                            </div>
+                        </a>
+                    </li>
+                                                </ul>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<div class="layoutOneColumn">
+            <div class="column clearfix">
+
+        <div style="display:none" id="globalcolchooser" class="contextualMenu colChooser">
+            <ul>
+                                            <li data-tag="impressions">Network Impressions</li>
+                                                <li data-tag="clicks">Network Clicks</li>
+                                                <li data-tag="cost">Network Cost</li>
+                                                <li data-tag="nwConversions">Network Conversions</li>
+                                                <li data-tag="roasValue">Gross Margin</li>
+                                                <li data-tag="avgPosition">Average Position</li>
+                                                <li data-tag="nonConvertingGoals">NC Goals (Non Converting Goals, Count / CPA)</li>
+                                                <li data-tag="nonConvertingGoalValue">NC Goals (Non Converting Goals, Value / CPA)</li>
+                                                <li data-tag="goals">All Goals (All Goals, Count / CPA)</li>
+                                                <li data-tag="goalValue">All Goals (All Goals, Value / CPA)</li>
+                                                <li data-tag="conversions">Conversions (Converting Goals, Count / CPA)</li>
+                                                <li data-tag="conversionValue">ROAS (Converting Goals, Value / ROAS)</li>
+
+
+            </ul>
+</div>
+    <div class="content layoutFiveColumn figureZeroMargin globalColumnChooser" data-scope="global" data-sections='["gawInfinity\u2013Tracking4344084629","macInfinityTrackingLtd-X07112731141536"]' data-uri="/igrp/1/user/preferences/colchooser/context/ppcaccsummary/update" data-cmenu="globalcolchooser">
+        <h4>Overview</h4>
+        <div class="column">
+                <dl>
+                    <dt class="colChooserOverview ppcaccsummary" data-position="0" data-tag="nwConversions"><span title="Click to select the global data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span><span class="headerSection">&nbsp;</span><br />Network Conv.<span class="colChooserSmall"> <span title="Network Conversion Value" class="tooltip">ncv</span></span></dt>
+                    <dd class="value">0 <span>£0.00</span></dd>
+                </dl>
+            </div>
+        <div class="column">
+                <dl>
+                    <dt class="colChooserOverview ppcaccsummary" data-position="1" data-tag="conversionValue"><span title="Click to select the global data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span><span class="headerSection">&nbsp;</span><br />ROAS<span class="colChooserSmall"> <span title="ROAS Percent" class="tooltip">roas%</span>,<span title="Value per Click" class="tooltip">vpc</span></span></dt>
+                    <dd class="value">£1,000.00 <span>135% £5.03</span></dd>
+                </dl>
+            </div>
+        <div class="column">
+                <dl>
+                    <dt class="colChooserOverview ppcaccsummary" data-position="2" data-tag="cost"><span title="Click to select the global data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span><span class="headerSection">&nbsp;</span><br />Cost<span class="colChooserSmall"> <span title="Cost per Click" class="tooltip">cpc</span></span></dt>
+                    <dd class="value">£740.55 <span>£3.72</span></dd>
+                </dl>
+            </div>
+        <div class="column">
+                <dl>
+                    <dt class="colChooserOverview ppcaccsummary" data-position="3" data-tag="nonConvertingGoals"><span title="Click to select the global data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span><span class="headerSection">&nbsp;</span><br />NC Goals<span class="colChooserSmall"> <span title="Click to Goal Rate" class="tooltip">ctg</span>,<span title="Cost per Goal" class="tooltip">cpg</span></span></dt>
+                    <dd class="value">3 <span>1.5% £246.85</span></dd>
+                </dl>
+            </div>
+        <div class="column last">
+                <dl>
+                    <dt class="colChooserOverview ppcaccsummary" data-position="4" data-tag="conversions"><span title="Click to select the global data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span><span class="headerSection">&nbsp;</span><br />Conversions<span class="colChooserSmall"> <span title="Click to Conversion Rate" class="tooltip">ctc</span>,<span title="Cost per Acquisition" class="tooltip">cpa</span></span></dt>
+                    <dd class="value">4 <span>2% £185.14</span></dd>
+                </dl>
+            </div>
+            </div>
+        </div>
+    </div>
+<div class="content layoutTwoColumn">
+    <div class="column">
+            <h4>
+        <span data-target="Chart_80" class="chartOptionsMenuButtonTop">Settings</span>
+<ul class="chartOptionsMenuTop" id="targetChart_80" style="display:none">
+    <li data-name="Chart_80" data-chartswitch="toggle" >
+        <a href="#">
+            <i class="icon refresh chartoption"></i> <span class="chartType">Line graph</span>
+        </a>
+    </li>
+</ul>        Clicks    </h4>
+<div class="report">
+            <div id="Chart_80"></div>
+        <script type="text/javascript">Highcharts.setOptions({
+            colors: ['#008CC9', '#4CB527', '#F05600', '#DEE000', '#00CBE7', '#5EE66D', '#4CAED9', '#81CB67', '#F4884C', '#E8E94C', '#4CDAEE', '#8EED99'],
+            credits: {
+                enabled: false
+            },
+            legend: {
+                align: 'left',
+                borderWidth: 0,
+                itemStyle: {
+                    color: '#999999',
+                    fontFamily: 'Arial',
+                    fontWeight: 'normal',
+                    fontSize: '11px'
+                },
+                itemHoverStyle: {
+                    color: '#000000'
+                }
+            },
+            title: {
+                text: null
+            },
+            tooltip:{
+                borderRadius: 0,
+                style:{
+                    color: '#000000',
+                    fontFamily: 'Arial',
+                    fontSize: '11px',
+                    fontWeight: 'bold'
+                }
+            },
+            xAxis: {
+                labels: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'normal',
+                        width: '100%'
+                    }
+                },
+                showLastLabel: true,
+                startOnTick: true,
+                tickColor: '#CACACA',
+                tickLength: 5,
+                tickmarkPlacement: 'on',
+                title: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'normal'
+                    }
+                },
+                gridLineColor: '#CACACA',
+                minorGridLineColor: '#EAEAEA',
+                minorTickLength: 0,
+                minorTickInterval: 'auto',
+                showFirstLabel: false,
+                tickWidth: 1,
+                title: {
+                    margin: 10,
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            plotOptions: {
+                areaspline: {
+                    animation: false,
+                    lineColor: '#666666',
+                    lineWidth: 1.2,
+                    marker: {
+                        lineWidth: 1,
+                        radius: 4,
+                        states: {
+                            hover: {
+                                fillColor: '#444444',
+                                lineWidth: 1,
+                                radius: 5
+                            }
+                        },
+                        symbol: 'circle'
+                    },
+                    pointPlacement: 'on',
+                    shadow: false,
+                    stacking: 'normal',
+                    states: {
+                        hover: {
+                            lineWidth: 1.7
+                        }
+                    }
+                },
+                column: {
+                    animation: false,
+                    borderWidth: 0,
+                    pointWidth: 45,
+                    shadow: false
+                },
+                spline: {
+                    animation: false,
+                    lineWidth: 1.8,
+                    marker: {
+                        lineWidth: 1,
+                        radius: 4,
+                        states: {
+                            hover: {
+                                fillColor: '#444444',
+                                lineWidth: 1,
+                                radius: 5
+                            }
+                        },
+                        symbol: 'circle'
+                    },
+                    pointPlacement: 'on',
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 2
+                        }
+                    }
+                },
+                series: {
+                    threshold: 0
+                }
+            }
+        });var options_Chart_80 = {chart: {
+                    renderTo: 'Chart_80',
+                    defaultSeriesType: 'areaspline',
+                    margin: [10, 30, 55, 60],
+                    height:'175'
+                },
+                xAxis: {
+                    categories: ['17th Aug','18th Aug','19th Aug','20th Aug','21st Aug','22nd Aug','23rd Aug'],
+                    tickInterval: null,
+                    title: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: '',
+                        margin: 12
+                    },
+                    labels: {
+                        formatter: function() {
+                            return Highcharts.numberFormat(this.value, (this.value > 2) ? 0 : 2, '.', ',') +' ';
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        return ''+
+                            this.point.name +': '+ Highcharts.numberFormat(this.y, (this.y > 2) ? 0 : 2, '.', ',') +' ';
+                    }
+                },
+                legend: {
+                    enabled: true
+                },
+                series: []
+            };
+        options_Chart_80.series.push({
+                name: "Infinity Trackin",
+                type: 'areaspline',
+                data: [['17 Aug', 0],['18 Aug', 1],['19 Aug', 0],['20 Aug', 0],['21 Aug', 3],['22 Aug', 1],['23 Aug', 0]]
+            });options_Chart_80.series.push({
+                name: "Infinity – Tra",
+                type: 'areaspline',
+                data: [['17 Aug', 28],['18 Aug', 17],['19 Aug', 37],['20 Aug', 40],['21 Aug', 33],['22 Aug', 39],['23 Aug', 0]]
+            });$(document).ready(function() {var Chart_80 = new Highcharts.Chart(options_Chart_80);});</script>    </div>    </div>
+    <div class="column last">
+            <h4>
+        <span data-target="Chart_207" class="chartOptionsMenuButtonTop">Settings</span>
+<ul class="chartOptionsMenuTop" id="targetChart_207" style="display:none">
+    <li data-name="Chart_207" data-chartswitch="toggle" >
+        <a href="#">
+            <i class="icon refresh chartoption"></i> <span class="chartType">Line graph</span>
+        </a>
+    </li>
+</ul>        Conversions    </h4>
+<div class="report">
+            <div id="Chart_207"></div>
+        <script type="text/javascript">Highcharts.setOptions({
+            colors: ['#008CC9', '#4CB527', '#F05600', '#DEE000', '#00CBE7', '#5EE66D', '#4CAED9', '#81CB67', '#F4884C', '#E8E94C', '#4CDAEE', '#8EED99'],
+            credits: {
+                enabled: false
+            },
+            legend: {
+                align: 'left',
+                borderWidth: 0,
+                itemStyle: {
+                    color: '#999999',
+                    fontFamily: 'Arial',
+                    fontWeight: 'normal',
+                    fontSize: '11px'
+                },
+                itemHoverStyle: {
+                    color: '#000000'
+                }
+            },
+            title: {
+                text: null
+            },
+            tooltip:{
+                borderRadius: 0,
+                style:{
+                    color: '#000000',
+                    fontFamily: 'Arial',
+                    fontSize: '11px',
+                    fontWeight: 'bold'
+                }
+            },
+            xAxis: {
+                labels: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'normal',
+                        width: '100%'
+                    }
+                },
+                showLastLabel: true,
+                startOnTick: true,
+                tickColor: '#CACACA',
+                tickLength: 5,
+                tickmarkPlacement: 'on',
+                title: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'normal'
+                    }
+                },
+                gridLineColor: '#CACACA',
+                minorGridLineColor: '#EAEAEA',
+                minorTickLength: 0,
+                minorTickInterval: 'auto',
+                showFirstLabel: false,
+                tickWidth: 1,
+                title: {
+                    margin: 10,
+                    style: {
+                        color: '#000000',
+                        fontFamily: 'Arial',
+                        fontSize: '11px',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            plotOptions: {
+                areaspline: {
+                    animation: false,
+                    lineColor: '#666666',
+                    lineWidth: 1.2,
+                    marker: {
+                        lineWidth: 1,
+                        radius: 4,
+                        states: {
+                            hover: {
+                                fillColor: '#444444',
+                                lineWidth: 1,
+                                radius: 5
+                            }
+                        },
+                        symbol: 'circle'
+                    },
+                    pointPlacement: 'on',
+                    shadow: false,
+                    stacking: 'normal',
+                    states: {
+                        hover: {
+                            lineWidth: 1.7
+                        }
+                    }
+                },
+                column: {
+                    animation: false,
+                    borderWidth: 0,
+                    pointWidth: 45,
+                    shadow: false
+                },
+                spline: {
+                    animation: false,
+                    lineWidth: 1.8,
+                    marker: {
+                        lineWidth: 1,
+                        radius: 4,
+                        states: {
+                            hover: {
+                                fillColor: '#444444',
+                                lineWidth: 1,
+                                radius: 5
+                            }
+                        },
+                        symbol: 'circle'
+                    },
+                    pointPlacement: 'on',
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 2
+                        }
+                    }
+                },
+                series: {
+                    threshold: 0
+                }
+            }
+        });var options_Chart_207 = {chart: {
+                    renderTo: 'Chart_207',
+                    defaultSeriesType: 'areaspline',
+                    margin: [10, 30, 55, 60],
+                    height:'175'
+                },
+                xAxis: {
+                    categories: ['17th Aug','18th Aug','19th Aug','20th Aug','21st Aug','22nd Aug','23rd Aug'],
+                    tickInterval: null,
+                    title: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: '',
+                        margin: 12
+                    },
+                    labels: {
+                        formatter: function() {
+                            return Highcharts.numberFormat(this.value, (this.value > 2) ? 0 : 2, '.', ',') +' ';
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        return ''+
+                            this.point.name +': '+ Highcharts.numberFormat(this.y, (this.y > 2) ? 0 : 2, '.', ',') +' ';
+                    }
+                },
+                legend: {
+                    enabled: true
+                },
+                series: []
+            };
+        options_Chart_207.series.push({
+                name: "Infinity Trackin",
+                type: 'areaspline',
+                data: [['17 Aug', 0.000000],['18 Aug', 0.000000],['19 Aug', 0.000000],['20 Aug', 0.000000],['21 Aug', 0.000000],['22 Aug', 0.000000],['23 Aug', 0]]
+            });options_Chart_207.series.push({
+                name: "Infinity – Tra",
+                type: 'areaspline',
+                data: [['17 Aug', 0.000000],['18 Aug', 0.000000],['19 Aug', 1.000000],['20 Aug', 0.000000],['21 Aug', 1.000000],['22 Aug', 2.000000],['23 Aug', 0]]
+            });$(document).ready(function() {var Chart_207 = new Highcharts.Chart(options_Chart_207);});</script>    </div>    </div>
+</div>
+            <div class="content layoutOneColumn">
+            <div class="column ppcManagement" id="target-gawinfinityTracking4344084629">
+                    <h4>
+                <span data-target="gaw4344084629" class="exportOptionsMenuButtonTop noMenuDivider">Export</span>
+        <ul class="exportOptionsMenuTop" id="targetgaw4344084629" style="display:none">
+            <li>
+                <a href="/report/igrp/1/ppc/analysis/export?networkCode=gaw&amp;accountRef=4344084629">Export to CSV</a>            </li>
+        </ul>
+        Google Adwords - Infinity – Tracking    </h4>
+    <div style="display:none" id="gawinfinityTracking4344084629" class="contextualMenu colChooser">
+            <ul>
+                                            <li data-tag="impressions">Network Impressions</li>
+                                                <li data-tag="clicks">Network Clicks</li>
+                                                <li data-tag="cost">Network Cost</li>
+                                                <li data-tag="nwConversions">Network Conversions</li>
+                                                <li data-tag="roasValue">Gross Margin</li>
+                                                <li data-tag="avgPosition">Average Position</li>
+                                                <li data-tag="nonConvertingGoals">NC Goals (Non Converting Goals, Count / CPA)</li>
+                                                <li data-tag="nonConvertingGoalValue">NC Goals (Non Converting Goals, Value / CPA)</li>
+                                                <li data-tag="goals">All Goals (All Goals, Count / CPA)</li>
+                                                <li data-tag="goalValue">All Goals (All Goals, Value / CPA)</li>
+                                                <li data-tag="conversions">Conversions (Converting Goals, Count / CPA)</li>
+                                                <li data-tag="conversionValue">ROAS (Converting Goals, Value / ROAS)</li>
+
+
+            </ul>
+</div>
+    <div class="report">
+        <table
+            class="ppcNetworks"
+            data-uri=/report/igrp/1/ppc/analysis/load/component?currencyCode=GBP&networkCode=gaw&accountRef=4344084629            data-content="network"
+            data-target="target-gawinfinityTracking4344084629"
+            data-cmenu="gawinfinityTracking4344084629">
+            <thead>
+                <tr>
+                    <th class="campaign colChooserHeader">&nbsp;</th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="0" data-tag="nwConversions" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Network Conv.                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Network Conversion Value" class="tooltip">ncv</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="1" data-tag="conversionValue" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">ROAS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="ROAS Percent" class="tooltip">roas%</span>,<span title="Value per Click" class="tooltip">vpc</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="2" data-tag="cost" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Cost                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Cost per Click" class="tooltip">cpc</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="3" data-tag="nonConvertingGoals" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">NC Goals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Click to Goal Rate" class="tooltip">ctg</span>,<span title="Cost per Goal" class="tooltip">cpg</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="4" data-tag="conversions" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Conversions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Click to Conversion Rate" class="tooltip">ctc</span>,<span title="Cost per Acquisition" class="tooltip">cpa</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                    </tr>
+            </thead>
+            <tbody id="gaw">
+                <tr class="total top">
+                    <td class="inactive">
+                        <a href="#"
+                        data-uri="/report/igrp/1/ppc/analysis/load/component?currencyCode=GBP&networkCode=gaw&accountRef=4344084629"
+                        data-action="load"
+                        data-content="campaign">Total </a>
+                    </td>
+                    <td class="value dataCol">0 <span class="additionalMetric">&pound;0.00 </span></td><td class="value dataCol">&pound;1,000.00 <span class="additionalMetric">137.1% &pound;5.15 </span></td><td class="value dataCol">&pound;729.28 <span class="additionalMetric">&pound;3.76 </span></td><td class="value dataCol">3 <span class="additionalMetric">1.6% &pound;243.09 </span></td><td class="value dataCol">4 <span class="additionalMetric">2.1% &pound;182.32 </span></td>                </tr>
+            </tbody>
+        </table>
+    </div>
+
+            </div>
+        </div>
+            <div class="content layoutOneColumn">
+            <div class="column ppcManagement" id="target-macinfinitytrackingltdX07112731141536">
+                    <h4>
+                <span data-target="mac1141536" class="exportOptionsMenuButtonTop noMenuDivider">Export</span>
+        <ul class="exportOptionsMenuTop" id="targetmac1141536" style="display:none">
+            <li>
+                <a href="/report/igrp/1/ppc/analysis/export?networkCode=mac&amp;accountRef=1141536">Export to CSV</a>            </li>
+        </ul>
+        Microsoft Adcenter - Infinity Tracking Ltd - X0711273    </h4>
+    <div style="display:none" id="macinfinitytrackingltdX07112731141536" class="contextualMenu colChooser">
+            <ul>
+                                            <li data-tag="impressions">Network Impressions</li>
+                                                <li data-tag="clicks">Network Clicks</li>
+                                                <li data-tag="cost">Network Cost</li>
+                                                <li data-tag="nwConversions">Network Conversions</li>
+                                                <li data-tag="roasValue">Gross Margin</li>
+                                                <li data-tag="avgPosition">Average Position</li>
+                                                <li data-tag="nonConvertingGoals">NC Goals (Non Converting Goals, Count / CPA)</li>
+                                                <li data-tag="nonConvertingGoalValue">NC Goals (Non Converting Goals, Value / CPA)</li>
+                                                <li data-tag="goals">All Goals (All Goals, Count / CPA)</li>
+                                                <li data-tag="goalValue">All Goals (All Goals, Value / CPA)</li>
+                                                <li data-tag="conversions">Conversions (Converting Goals, Count / CPA)</li>
+                                                <li data-tag="conversionValue">ROAS (Converting Goals, Value / ROAS)</li>
+
+
+            </ul>
+</div>
+    <div class="report">
+        <table
+            class="ppcNetworks"
+            data-uri=/report/igrp/1/ppc/analysis/load/component?currencyCode=GBP&networkCode=mac&accountRef=1141536            data-content="network"
+            data-target="target-macinfinitytrackingltdX07112731141536"
+            data-cmenu="macinfinitytrackingltdX07112731141536">
+            <thead>
+                <tr>
+                    <th class="campaign colChooserHeader">&nbsp;</th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="0" data-tag="nwConversions" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Network Conv.                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Network Conversion Value" class="tooltip">ncv</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="1" data-tag="conversionValue" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">ROAS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="ROAS Percent" class="tooltip">roas%</span>,<span title="Value per Click" class="tooltip">vpc</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="2" data-tag="cost" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Cost                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Cost per Click" class="tooltip">cpc</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="3" data-tag="nonConvertingGoals" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">NC Goals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Click to Goal Rate" class="tooltip">ctg</span>,<span title="Cost per Goal" class="tooltip">cpg</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                            <th class="colChooserHeader dataCol ppcaccsummary" data-position="4" data-tag="conversions" >
+                            <div class="colChooserHeaderContent bordered">
+                                <span title="Click to select the data column" class="tooltip featureInfo"><i class="icon small cog lgray dgrayHover"></i></span>                                                                    <a href="#">
+                                        <span class="colChooserSectionTitle"></span><br />
+                                        <span class="colChooserColumnTtitle">Conversions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="info">(<span title="Click to Conversion Rate" class="tooltip">ctc</span>,<span title="Cost per Acquisition" class="tooltip">cpa</span>)</span>
+                                                                                                                        </a>
+                                                            </div>
+                        </th>
+                                    </tr>
+            </thead>
+            <tbody id="mac">
+                <tr class="total top">
+                    <td class="inactive">
+                        <a href="#"
+                        data-uri="/report/igrp/1/ppc/analysis/load/component?currencyCode=GBP&networkCode=mac&accountRef=1141536"
+                        data-action="load"
+                        data-content="campaign">Total </a>
+                    </td>
+                    <td class="value dataCol">0 <span class="additionalMetric">&pound;0.00 </span></td><td class="value dataCol">&pound;0.00 <span class="additionalMetric">0% &pound;0.00 </span></td><td class="value dataCol">&pound;11.27 <span class="additionalMetric">&pound;2.25 </span></td><td class="value dataCol">0 <span class="additionalMetric">0% &pound;0.00 </span></td><td class="value dataCol">0 <span class="additionalMetric">0% &pound;0.00 </span></td>                </tr>
+            </tbody>
+        </table>
+    </div>
+
+            </div>
+        </div>
+    <div id="ppcReportsCMenu" class="fluidWidth" style="display:none" data-parent="">
+    <div class="arrow bottom"></div>
+    <ul>
+        <li id="cMenuGoalsList" data-action="goalsList" ><i class="icon list-page"></i> Goals List</li>
+        <li id="cMenuGoalsTimeLine" data-action="loadChart" ><i class="icon graph"></i> Goals Timeline</li>
+    </ul>
+</div>
+                <div id="footer">
+                        <p>Build: 1.4.426-1.4.18</p>
+                </div>
+            </div>
+        </div>
+        <div id="feedback">
+            <div id="feedbackButton">
+    <p><a data-feedback-uri="/feedback" href="#" alt="Send Feedback" title="Send Feedback">Send Feedback</a></p>
+</div>        </div>
+            </body>
 </html>
