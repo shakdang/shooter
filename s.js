@@ -1,23 +1,3 @@
-// --------------------------------------------------
-
-// invader
-// 0 0111100
-// 0 0111010
-// 0 1111110
-// 0 0001111
-// 0 0111100
-// 0 1001100
-//
-// star bullet (1px top left)
-// 00000001
-//
-// ship
-// 01111000
-// 01111110
-// 00110000
-// 01110110
-// 01111111
-//
 // e1 at offset 0 width 9 e1 at offset 1 width 11, pixel at offset 7 width 1 ship at offset 8 width 9
 var j = '^L<~:<v0~x',
     k = {},                                    // keytracker
@@ -29,7 +9,7 @@ var j = '^L<~:<v0~x',
 
 /*
  * Main draw function
- * d,e,f,g,h,i = uused
+ * d,e,f,g,h,i = unused
  */
 D = function(d,e,f,g,h,i) {
     a.fillStyle = '#FFF'
@@ -43,7 +23,7 @@ D = function(d,e,f,g,h,i) {
     l.m.map(function(d,e,f,g,h,i){ // for each bullet
         m=d,o=e
         // update bullet positions and remove bullet if out of view
-        d.y < 0 ? l.m.splice(e,1) : d.y -= 4
+        d.y < 0 ? l.m.splice(o,1) : d.y -= 4
         l.k.map(function(d,e,f,g,h,i){ // for each enemy
             //if bullet and enemy overlap, remove both
             m.x < (d.x + d.w*d.v) && m.x > d.x && m.y < (d.y + 7) && l.k.splice(e,1) && l.m.splice(o,1)
@@ -51,7 +31,7 @@ D = function(d,e,f,g,h,i) {
     })
 
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
-    l.j.map(function(d,e,f,g,h,i){(d.y += d.h), d.y > n && (d.y = 0, d.x = R(n))})
+    l.j.map(function(d,e,f,g,h,i){(d.y += d.h), d.y > n && (d.y = 0, d.x = (Math.random()*n)+1)})
 
      // render all the objects to canvas
     for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
@@ -66,7 +46,7 @@ D = function(d,e,f,g,h,i) {
  * h = width/height
  * i = unused but kept for crushing
  */
-Z =function(d,e,f,g,h,i) {
+Z = function(d,e,f,g,h,i) {
     var o = this // shape local reference
     o.x = d      // shape position x
     o.y = e      // shape position y
@@ -89,13 +69,6 @@ Z =function(d,e,f,g,h,i) {
 },
 
 /*
- * Random number generator between 1 => limit
- * d = limit
- * e,f,g,h,i = unused
- */
-R = function(d,e,f,g,h,i) { return (Math.random()*d)+1 },
-
-/*
  * Alias for constructing the drawable objects
  * d = pos x
  * e = pos y
@@ -114,7 +87,7 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         for (g=8;g--;) {
             !i && !g && J(n/2,170,8,1,9,'l')                    // load the ship in the last pass
             J(g*22+11,11*i+6,~~(i/2),1,11,'k')                   // load enemy rows grid
-            g > 3 && J(R(n), R(n), 7, (105/(40+R(2E2))),1,'j')   // load stars for all passes which will be recycled througout
+            g > 3 && J((Math.random()*n)+1, (Math.random()*n)+1, 7, (105/(40+(Math.random()*2E2)+1)),1,'j')   // load stars for all passes which will be recycled througout
         }
 
     onkeyup = onkeydown = function(d,e,f,g,h,i) {
