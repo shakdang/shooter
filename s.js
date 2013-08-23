@@ -1,11 +1,11 @@
 // e1 at offset 0 width 9 e1 at offset 1 width 11, pixel at offset 7 width 1 ship at offset 8 width 9
 var j = '^L<~:<v0~x',
-    k = {},                                    // keytracker
-    l = {                                      // object collection
-        j:[],                                  // stars
-        k:[],                                  // enemies
-        l:[],                                  // ship
-        m:[]},                                 // bullets
+    k = {},    // keytracker
+    l = {      // object collection
+        j:[],  // stars
+        k:[],  // enemies
+        l:[],  // ship
+        m:[]}, // bullets
 
 /*
  * Main draw function
@@ -18,23 +18,23 @@ D = function(d,e,f,g,h,i) {
 
     // if left key pressed then go left else if right key pressed go right else don't do anything
     l.l[0].m(k[37]?-2:k[39]?2:0)
+    l.l[0].k()
 
-    //collision detection + bullet position rollup
-    l.m.map(function(d,e,f,g,h,i){ // for each bullet
+    l.k.map(function(d,e,f,g,h,i){
         m=d,o=e
-        // update bullet positions and remove bullet if out of view
-        d.y < 0 ? l.m.splice(o,1) : d.y -= 4
-        l.k.map(function(d,e,f,g,h,i){ // for each enemy
-            //if bullet and enemy overlap, remove both
-            m.x < (d.x + d.w*d.v) && m.x > d.x && m.y < (d.y + 7) && l.k.splice(e,1) && l.m.splice(o,1)
+        l.m.map(function(d,e,f,g,h,i){
+            d.k()
+            !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
+            //  m.x < (d.x + d.w*d.v) && m.x > d.x && m.y < (d.y + 7) && l.k.splice(e,1) && l.m.splice(o,1)
+            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 && l.k.splice(o,1) && l.m.splice(e,1) && clearInterval(_)
         })
+        d.k()
     })
-
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
-    l.j.map(function(d,e,f,g,h,i){(d.y += d.h), d.y > n && (d.y = 0, d.x = (Math.random()*n)+1)})
+    l.j.map(function(d,e,f,g,h,i){d.y += d.h; d.y > n && (d.y = 0, d.x = (Math.random()*n)+1); d.k()})
 
      // render all the objects to canvas
-    for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
+    //for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
 },
 
 /*
@@ -94,5 +94,5 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    setInterval(D, 16) // 60 fps hardcoded heartbeat
+   _ =  setInterval(D, 16) // 60 fps hardcoded heartbeat
 })(document);
