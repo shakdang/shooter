@@ -20,20 +20,30 @@ D = function(d,e,f,g,h,i) {
     l.l[0].m(k[37]?-2:k[39]?2:0)
     l.l[0].k()
 
+    // for (o=0;o<l.k.length;o++) {
+    //     for (e=0;e<l.m.length;e++) {
+    //         var d = l.m[e]
+    //         var m = l.k[o]
+    //         !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
+    //         d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 &&l.k.splice(o,1) && l.m.splice(e,1)
+    //     }
+    // }
 
-    l.k.map(function(d,e,f,g,h,i){
+    l.k.map(r=function(d,e,f,g,h,i){
         m=d,o=e
         l.m.map(function(d,e,f,g,h,i){
+            d.k()
             !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
-            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 &&l.k.splice(o,1) && l.m.splice(e,1)
+            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 && l.m.splice(e,1) && (m.x = 0)
         })
+        m.x && d.k()
     })
 
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
     l.j.map(function(d,e,f,g,h,i){d.y += d.h; d.y > n && (d.y = 0, d.x = (Math.random()*n)+1); d.k()})
 
      // render all the objects to canvas
-    for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
+    //for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
 },
 
 /*
@@ -93,5 +103,6 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-   _ =  setInterval(D, 16) // 60 fps hardcoded heartbeat
+    //D()
+   setInterval(D, 16) // 60 fps hardcoded heartbeat
 })(document);
