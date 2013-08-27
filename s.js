@@ -20,21 +20,20 @@ D = function(d,e,f,g,h,i) {
     l.l[0].m(k[37]?-2:k[39]?2:0)
     l.l[0].k()
 
+
     l.k.map(function(d,e,f,g,h,i){
         m=d,o=e
         l.m.map(function(d,e,f,g,h,i){
-            d.k()
             !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
-            //  m.x < (d.x + d.w*d.v) && m.x > d.x && m.y < (d.y + 7) && l.k.splice(e,1) && l.m.splice(o,1)
-            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 && l.k.splice(o,1) && l.m.splice(e,1) && clearInterval(_)
+            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 &&l.k.splice(o,1) && l.m.splice(e,1)
         })
-        d.k()
     })
+
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
     l.j.map(function(d,e,f,g,h,i){d.y += d.h; d.y > n && (d.y = 0, d.x = (Math.random()*n)+1); d.k()})
 
      // render all the objects to canvas
-    //for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
+    for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
 },
 
 /*
