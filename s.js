@@ -69,7 +69,7 @@ Z = function(d,e,f,g,h,i) {
         i=m.w
         while(i--)
             for(g=8;g--;)
-                (j.charCodeAt(m.z+Math.abs(~~(m.w/2)-i))&1<<g) && a.fillRect(m.x+i*m.v,m.y+g*m.v,m.v,m.v)
+                j.charCodeAt(m.z+Math.abs(~~(m.w/2)-i))&1<<g && a.fillRect(m.x+i*m.v,m.y+g*m.v,m.v,m.v)
     }
 
     this.m = function(d,e,f,g,h,i) {
@@ -95,7 +95,7 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
     c.width = c.height = n = 186, i = 4        // size of the canvas
     while(i--)
         for (g=8;g--;) {
-            !i && !g && J(n/2,170,8,1,9,'l')  // load the ship in the last pass
+            !i && !g, J(n/2,170,8,1,9,'l')  // load the ship in the last pass
             J(g*22+11,11*i+6,~~(i/2),1,11,'k') // load enemy rows grid
             g > 3 && J((Math.random()*n)+1, (Math.random()*n)+1, 7, (105/(40+(Math.random()*2E2)+1)),1,'j')   // load stars for all passes which will be recycled througout
         }
