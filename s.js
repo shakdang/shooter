@@ -16,20 +16,10 @@ D = function(d,e,f,g,h,i) {
     a.fillRect(0,0,n,n)
     a.fillStyle = '#CCC'
 
-    // if left key pressed then go left else if right key pressed go right else don't do anything
     l.l[0].m(k[37]?-2:k[39]?2:0)
     l.l[0].k()
 
-    // for (o=0;o<l.k.length;o++) {
-    //     for (e=0;e<l.m.length;e++) {
-    //         var d = l.m[e]
-    //         var m = l.k[o]
-    //         !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
-    //         d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 &&l.k.splice(o,1) && l.m.splice(e,1)
-    //     }
-    // }
-
-    l.k.map(r=function(d,e,f,g,h,i){
+    l.k.map(function(d,e,f,g,h,i){
         m=d,o=e
         l.m.map(function(d,e,f,g,h,i){
             d.k()
@@ -41,9 +31,6 @@ D = function(d,e,f,g,h,i) {
 
     // auto generate stars by moving them to a random x and y=0 once they've gone out of view
     l.j.map(function(d,e,f,g,h,i){d.y += d.h; d.y > n && (d.y = 0, d.x = (Math.random()*n)+1); d.k()})
-
-     // render all the objects to canvas
-    //for (o in l) l[o].map(function(d,e,f,g,h,i){d.k()})
 },
 
 /*
@@ -56,24 +43,24 @@ D = function(d,e,f,g,h,i) {
  * i = unused but kept for crushing
  */
 Z = function(d,e,f,g,h,i) {
-    var o = this // shape local reference
-    o.x = d      // shape position x
-    o.y = e      // shape position y
-    o.z = f      // shape map string offset
-    o.v = g      // shape scaling multiplier
-    o.w = h      // shape width
-    o.h = h*g    // scaled height to help with collision detection
+    var m = this // shape local reference
+    m.x = d      // shape position x
+    m.y = e      // shape position y
+    m.z = f      // shape map string offset
+    m.v = g      // shape scaling multiplier
+    m.w = h      // shape width
+    m.h = h*g    // scaled height to help with collision detection
 
     this.k = function(d,e,f,g,h,i) {
-        i=o.w
+        i=m.w
         while(i--)
             for(g=8;g--;)
-                (j.charCodeAt(o.z+Math.abs(~~(o.w/2)-i))&1<<g) && a.fillRect(o.x+i*o.v,o.y+g*o.v,o.v,o.v)
+                (j.charCodeAt(m.z+Math.abs(~~(m.w/2)-i))&1<<g) && a.fillRect(m.x+i*m.v,m.y+g*m.v,m.v,m.v)
     }
 
     this.m = function(d,e,f,g,h,i) {
-        e = o.x+d
-        e > 0 && e+o.w < n && (o.x = e*o.v) // shape movement function (scaled)
+        i = m.x+d
+        i > 0 && i+m.w < n && (m.x = i*m.v) // shape movement function (scaled)
     }
 },
 
@@ -89,13 +76,13 @@ Z = function(d,e,f,g,h,i) {
 J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
 
 (function(d,e,f,g,h,i) {
-    c = d.getElementById('g')             // canvas
-    a = c.getContext('2d')                // context 2d
-    c.width = c.height = n = 186, i = 4   // size of the canvas
+    c = d.getElementById('g')                  // canvas
+    a = c.getContext('2d')                     // context 2d
+    c.width = c.height = n = 186, i = 4        // size of the canvas
     while(i--)
         for (g=8;g--;) {
-            !i && !g && J(n/2,170,8,1,9,'l')                    // load the ship in the last pass
-            J(g*22+11,11*i+6,~~(i/2),1,11,'k')                   // load enemy rows grid
+            !i && !g && J(n/2,170,8,1,9,'l')  // load the ship in the last pass
+            J(g*22+11,11*i+6,~~(i/2),1,11,'k') // load enemy rows grid
             g > 3 && J((Math.random()*n)+1, (Math.random()*n)+1, 7, (105/(40+(Math.random()*2E2)+1)),1,'j')   // load stars for all passes which will be recycled througout
         }
 
