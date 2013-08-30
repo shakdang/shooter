@@ -1,3 +1,17 @@
+/**
+ * (WIP) Tiny space invaders clone - Shahrukh Omar
+ * 861 bytes crushed (814 bytes using js-1k shim) - aiming for 700 bytes mark
+ *
+ * Randomly generated stars background with depth of field and parallex affect
+ * Active collision detection on every frame
+ * Advanced key press tracking - able to detect short and continuous key press
+ * No images, no external files, no libraries, no includes
+ *
+ * Code is hand minified (whitespace and comments removed using basic YUI compressor)
+ * and crushed using brilliant JS Crush by Avio Pass (http://www.iteral.com/jscrush/)
+ * http://jsfiddle.net/k33Jd/
+ */
+
 // e1 at offset 0 width 9 e1 at offset 1 width 11, pixel at offset 7 width 1 ship at offset 8 width 9
 var j = '^L<~:<v0~x',
     k = {},    // keytracker
