@@ -38,7 +38,7 @@ D = function(d,e,f,g,h,i) {
         l.m.map(function(d,e,f,g,h,i){
             d.k()
             !o && (d.y < 0 ? l.m.splice(e,1) : d.y -= 4)
-            d.x < (m.x + m.w*m.v) && d.x > m.x && d.y < m.y + 7 && l.m.splice(e,1) && (m.x = 0)
+            d.x < (m.x + m.w*m.v) & d.x > m.x & d.y < m.y + 7 && l.m.splice(e,1) && (m.x = 0)
         })
         m.x && d.k()
     })
@@ -90,7 +90,7 @@ Z = function(d,e,f,g,h,i) {
 J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
 
 (function(d,e,f,g,h,i) {
-    c = d.getElementById('g')                  // canvas
+    c = document.getElementById('g')                  // canvas
     a = c.getContext('2d')                     // context 2d
     c.width = c.height = n = 186, i = 4        // size of the canvas
     while(i--)
@@ -104,6 +104,5 @@ J = function(d,e,f,g,h,i) { l[i].push(new Z(d,e,f,g,h,i)) };
         k[d.keyCode] = !(d.type == 'keyup') // track key press for up and down
         k[32] && J(l.l[0].x+5, l.l[0].y, 7, 2, 1,'m') // create new bullet on space bar press
     };
-    //D()
    setInterval(D, 16) // 60 fps hardcoded heartbeat
-})(document);
+})();
